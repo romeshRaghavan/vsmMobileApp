@@ -150,26 +150,20 @@ if (window.openDatabase) {
 }
 
 //function to remove a employeeDetails from the database, passed the row id as it's only parameter
-function saveBusinessDetails(status){
+function savePrDetails(status){
 	exceptionMessage='';
 	
 	if (mydb) {
 		//get the values of the text inputs
-        var exp_date = document.getElementById('expDate').value;
-		var exp_from_loc = document.getElementById('expFromLoc').value;
-		var exp_to_loc = document.getElementById('expToLoc').value;
-		var exp_narration = document.getElementById('expNarration').value;
-		var exp_unit = document.getElementById('expUnit').value;
-		var exp_amt = document.getElementById('expAmt').value;
-		var entitlement_exceeded=exceptionStatus;
-		exceptionStatus="N";
+        var pr_title = document.getElementById('prTitle').value;
+		var po_raised_at = document.getElementById('poRaised').value;
+		var grn_raised_at = document.getElementById('grnRaised').value;
+		var acCode_Type = document.getElementById('acCodeType').value;
 		var acc_head_id;
 		var acc_head_val;
-		var exp_name_id;
-		var exp_name_val;
-		var currency_id;
-		var currency_val;
-		var file;
+		var opBudget_id;
+		var opBudget_val;
+
 		if(j("#accountHead").select2('data') != null){
 			acc_head_id = j("#accountHead").select2('data').id;
 			acc_head_val = j("#accountHead").select2('data').name;
@@ -177,67 +171,44 @@ function saveBusinessDetails(status){
 			acc_head_id = '-1';
 		}
 		
-		if(j("#expenseName").select2('data') != null){
-			exp_name_id = j("#expenseName").select2('data').id;
-			exp_name_val = j("#expenseName").select2('data').name;
+		if(j("#opBudget").select2('data') != null){
+			opBudget_id = j("#opBudget").select2('data').id;
+			opBudget_val = j("#opBudget").select2('data').name;
 		}else{
-			exp_name_id = '-1';
+			opBudget_id = '-1';
 		}	
 		
-		if(j("#currency").select2('data') != null){
-			currency_id = j("#currency").select2('data').id;
-			currency_val = j("#currency").select2('data').name;
-		}else{
-			currency_id = '-1';
-		}
 		
-		if(fileTempGalleryBE ==undefined || fileTempGalleryBE ==""){
 		
-		}else{
-			file = fileTempGalleryBE;
-		}
-		
-		if(fileTempCameraBE ==undefined || fileTempCameraBE ==""){
-		
-		}else{
-			file = fileTempCameraBE; 
-		}
-		
-		if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){
+		if(validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_head_id,opBudget_id)){
 		 
 		j('#loading_Cat').show();			  
 		  
-		  if(file ==undefined){
-		  	file="";
-			}
+		 	viewBusinessExp();
 			
-		  mydb.transaction(function (t) {
+		 /* mydb.transaction(function (t) {
 				t.executeSql("INSERT INTO businessExpDetails (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file]);
-								
+											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file]);*/
+			/*					
 				if(status == "0"){
 				
-					document.getElementById('expDate').value ="";
-					document.getElementById('expFromLoc').value = "";
-					document.getElementById('expToLoc').value = "";
-					document.getElementById('expNarration').value = "";
-					document.getElementById('expUnit').value ="";
-					document.getElementById('expAmt').value = "";
-					smallImageBE.style.display = 'none';
-					smallImageBE.src = "";
-					j('#errorMsgArea').children('span').text("");
+     		document.getElementById('prTitle').value ="";
+			document.getElementById('poRaised').value ="";;
+			document.getElementById('grnRaised').value ="";;
+			document.getElementById('acCodeType').value ="";;
+/*					smallImageBE.style.display = 'none';
+					smallImageBE.src = "";*/
+					/*j('#errorMsgArea').children('span').text("");
 					j('#accountHead').select2('data', '');
-					j('#expenseName').select2('data', '');
+					j('#opBudget').select2('data', '');
 					//j('#currency').select2('data', '');
 					j('#loading_Cat').hide();
 					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-					resetImageData();
+					//resetImageData();*/
 					//createBusinessExp();
-				}else{
-					viewBusinessExp();
-				}
-			});
+				/*}
+			};*/
 		
 		}else{
 			return false;
@@ -913,8 +884,8 @@ function synchronizeBEMasterData() {
  	
 	if (mydb) {
 		mydb.transaction(function (t) {
-				t.executeSql("SELECT * FROM accountHeadMst", [], getAccHeadList);
-				t.executeSql("SELECT * FROM accountHeadMst", [], getOperationalBudgetList);
+				t.executeSql("SELECT * FROM accHeadMst", [], getAccHeadList);
+				t.executeSql("SELECT * FROM accHeadMst", [], getOperationalBudgetList);
 				/*t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
 				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
 				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);*/
@@ -930,8 +901,8 @@ function synchronizeBEMasterData() {
 	for (i = 0; i < results.rows.length; i++) {
         var row = results.rows.item(i);
 		var jsonFindAccHead = new Object();
-		jsonFindAccHead["Label"] = row.accountHeadId;
-		jsonFindAccHead["Value"] = row.accHeadName;
+		jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
 		jsonAccHeadArr.push(jsonFindAccHead);
 	}
 	createAccHeadDropDown(jsonAccHeadArr);
@@ -948,6 +919,7 @@ function getTrAccHeadList(transaction, results) {
 	}
 	createTRAccHeadDropDown(jsonAccHeadArr);
 }	
+
 function getOperationalBudgetList(transaction, results) {
  var jsonBudgetNameArr = [];
  var jsonFindAccHead = [];
@@ -956,13 +928,30 @@ function getOperationalBudgetList(transaction, results) {
         var row = results.rows.item(i);
    /*  operationalBudgetDetailsJSON["operationalBudgetId"]=row.operationalBudgetId;
 	 operationalBudgetDetailsJSON["operationalBudgetName"]=row.operationalBudgetName;*/
-		jsonFindAccHead["Label"] = row.accountHeadId;
-		jsonFindAccHead["Value"] = row.accHeadName;
+		jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
 		jsonBudgetNameArr.push(jsonFindAccHead);
 	//jsonBudgetNameArr.push(operationalBudgetDetailsJSON);
 	 }
 	createOperationalBudgetDropDown(jsonBudgetNameArr)
  }
+}
+
+
+function getExpNameList(transaction, results) {
+    var i;
+	var jsonExpNameArr = [];
+	
+	for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+		var jsonFindExpNameHead = new Object();
+
+		jsonFindExpNameHead["ExpenseID"] = row.id;
+		jsonFindExpNameHead["ExpenseName"] = row.expName;
+		
+		jsonExpNameArr.push(jsonFindExpNameHead);
+	}
+	createExpNameDropDown(jsonExpNameArr);
 }
 
 function getCurrencyList(transaction, results) {
@@ -1323,6 +1312,7 @@ function fetchTravelDomOrInterDate(transaction, results) {
 	}
 	 
 }
+
 
 
 

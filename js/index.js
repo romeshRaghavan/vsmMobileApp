@@ -267,15 +267,15 @@ function isJsonString(str) {
 				
  
 function viewBusinessExp(){
-    var pageRef=defaultPagePath+'fairClaimTable.html';
-    var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
+    var pageRef=defaultPagePath+'addPurchaseReqSceen2.html';
+    var headerBackBtn=defaultPagePath+'backbtnPage.html';
 	j(document).ready(function() {
 		
 		j('#mainHeader').load(headerBackBtn);
 		j('#mainContainer').load(pageRef);
 	});
     appPageHistory.push(pageRef);
-    resetImageData();
+    //resetImageData();
     j('#loading_Cat').hide();
 }
 
@@ -662,60 +662,20 @@ function getFormattedDate(input){
    
 }
 
-function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id){
-	if(exp_date == ""){
-		alert("Expense Date is invalid");
+function validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_head_id,opBudget_id){
+	if(pr_title == ""){
+		alert("PR title can not be null");
 		return false;
 	}
 	if(acc_head_id == "-1"){
 		alert("Account Head is invalid");
 		return false;
 	}
-	if(exp_name_id == "-1"){
-		alert("Expense Name is invalid");
-		return false;
-	}
-	if(perUnitDetailsJSON.expenseIsfromAndToReqd!='N'){
-		if(exp_from_loc == ""){
-			alert("From Location is invalid");
-			return false;
-		}
-		if(exp_to_loc == ""){
-			alert("To Location is invalid");
-			return false;
-		}
-	}
-
-	if(exp_narration == ""){
-		alert("Narration is invalid");
+	if(opBudget_id == "-1"){
+		alert("operationalBudgetName is invalid");
 		return false;
 	}
 	
-	if(perUnitDetailsJSON.expIsUnitReq == 'Y'){
-		if(exp_unit != ""){
-			if(isOnlyNumeric(exp_unit,"Unit")==false)
-			{
-				return false;
-			}
-		}else{
-			alert("Unit is invalid");
-			return false;
-		}
-	}
-		if(exp_amt != ""){
-			if(isOnlyNumeric(exp_amt,"Amount")==false)
-			{
-				return false;
-			}
-		}else{
-			alert("Amount is invalid");
-			return false;
-		}
-	
-	if(currency_id == "-1"){
-		alert("Currency Name is invalid");
-		return false;
-	}
 	
 	return true;
 }
@@ -1406,6 +1366,34 @@ function setTREntitlementExceedMessage(returnJsonData,jsonToBeSend){
 			});
       appPageHistory.push(pageRef);
 	 }
+
+
+function createExpNameDropDown(jsonExpNameArr){
+	var jsonExpArr = [];
+	if(jsonExpNameArr != null && jsonExpNameArr.length > 0){
+		for(var i=0; i<jsonExpNameArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonExpNameArr[i];
+			jsonExpArr.push({id: stateArr.ExpenseID,name: stateArr.ExpenseName});
+		}
+	}
+		
+	j("#expenseName").select2({
+		data:{ results: jsonExpArr, text: 'name' },
+		placeholder: "Expense Name",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonExpArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
+
+
 function createTravelExpenseNameDropDown(jsonExpenseNameArr){
 	var jsonExpArr = [];
 	if(jsonExpenseNameArr != null && jsonExpenseNameArr.length > 0){

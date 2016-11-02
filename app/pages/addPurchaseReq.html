@@ -7,15 +7,15 @@
                 <li>
                   <p style="text-align:center;"><font face="verdana" size="1" color="green" >PR TITLE</font></span></p>
         <input id="prTitle" type="text" align="center" placeholder="Enter Title">
-				</li>
+        </li>
                 
                 <!-- Displayed on basis of budgeting status -->
   <div id="Budgeting">
   <p style="text-align:center;"><font face="verdana" size="1" color="green" >OPERATIONAL BUDGET</font></span></p>
-	                <li id="budget">
-	                  <input id="opBudget" type="hidden"  style="width: 98%">
-	                </li>
-	                </div> 
+                  <li id="budget">
+                    <input id="opBudget" type="hidden"  style="width: 98%">
+                  </li>
+                  </div> 
                                  <!-- Displayed on basis of budgeting status -->
     <p style="text-align:center;"><font face="verdana" size="1" color="green">ACCOUNT HEAD</font>
                 <li>
@@ -38,9 +38,9 @@
   <p style="text-align:center;"><font face="verdana" size="1" color="green">GRN CAN BE RAISED AT:</font></span></p>
            <table align="center">
             <td><input type="radio" id="grnRaised" name="grnRaised" value="H" checked>HO&nbsp;&nbsp;</td>
- 						<td><input type="radio" id="grnRaised" name="grnRaised" value="Z"> Zone&nbsp;&nbsp;</td>
- 					  <td><input type="radio" id="grnRaised" name="grnRaised" value="L"> Location&nbsp;&nbsp;</td>
-  					<td><input type="radio" id="grnRaised" name="grnRaised" value="A"> All&nbsp;&nbsp;</td>
+            <td><input type="radio" id="grnRaised" name="grnRaised" value="Z"> Zone&nbsp;&nbsp;</td>
+            <td><input type="radio" id="grnRaised" name="grnRaised" value="L"> Location&nbsp;&nbsp;</td>
+            <td><input type="radio" id="grnRaised" name="grnRaised" value="A"> All&nbsp;&nbsp;</td>
             </table>
                 </li>
                 
@@ -48,66 +48,66 @@
   <p style="text-align:center;"><font face="verdana" size="1" color="green">TYPE OF ACCOUNT CODE:</font></span></p>
           <table align="center">
             <td><input type="radio" id="acCodeType" name="acCodeType" value="C" checked>Capex&nbsp;&nbsp;</td>
- 						<td><input type="radio" id="acCodeType" name="acCodeType" value="O"> Opex&nbsp;&nbsp;</td>
-  					<td><input type="radio" id="acCodeType" name="acCodeType" value="B"> Both&nbsp;&nbsp;</td>
+            <td><input type="radio" id="acCodeType" name="acCodeType" value="O"> Opex&nbsp;&nbsp;</td>
+            <td><input type="radio" id="acCodeType" name="acCodeType" value="B"> Both&nbsp;&nbsp;</td>
             </table>
                </li>
                
-				<!-- <li>
-				  <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
+        <!-- <li>
+          <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
                   <input id="expUnit" type="tel" style="width: 22%" placeholder="Units" onkeyup="calculatePerUnit();">
-				  <input id="expAmt" type="tel" style="width: 38%" placeholder="Amount" onkeyup="checkPerUnitExceptionStatusForBEAtLineLevel();">
+          <input id="expAmt" type="tel" style="width: 38%" placeholder="Amount" onkeyup="checkPerUnitExceptionStatusForBEAtLineLevel();">
                   <input id="currency" type="hidden" style="width: 33%">
-				  <p id="errorMsgArea" ><span id="errorSpan"></span></p>
-				</li>
-				
+          <p id="errorMsgArea" ><span id="errorSpan"></span></p>
+        </li>
+        
                <div >
-				<li style="text-align:left;">
+        <li style="text-align:left;">
                   <ul>
-					  <img src="images/camera.png" onclick="capturePhoto(0,'BE');" width="15%" height="15%" >
-					  <img src="images/gallery.png" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');" width="15%" height="15%" >
-					  <img style="display:none;width:40%;height:100px;align:right;" id="smallImageBE" src="" />
-					  <input style="display:none;" type="file" id="imageBE" />
-				  </ul>
-				 </li> -->
-			   </div>
-			
+            <img src="images/camera.png" onclick="capturePhoto(0,'BE');" width="15%" height="15%" >
+            <img src="images/gallery.png" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');" width="15%" height="15%" >
+            <img style="display:none;width:40%;height:100px;align:right;" id="smallImageBE" src="" />
+            <input style="display:none;" type="file" id="imageBE" />
+          </ul>
+         </li> -->
+         </div>
+      
             <div  style="display:none" id="displayText" class="displayTextCSS">
                Expenses added successfully.
            </div>
-		   <div style="text-align:center;">
+       <div style="text-align:center;">
             <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(0);">NEXT</button>
             <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(1);">CANCEL</button>
-			</div>
+      </div>
           </div>
           </div>
         </div>
-		<div style="display:none" id="loading_Cat" >
+    <div style="display:none" id="loading_Cat" >
                <img src="images/loading2.gif" id="loading-image_Cat" alt="Loading..." >
-		</div>
+    </div>
       </div>
-	  <script>
+    <script>
 var currentMonth;
 var currentDate;
 var currentYear;
-		 $(function() { 
-		var date = new Date();
-		 currentMonth = date.getMonth();
-		 currentDate = date.getDate();
-		 currentYear = date.getFullYear();
-		$('#delDate').datepicker({
-		maxDate: new Date(currentYear, currentMonth, currentDate)
-		});
-	});
-	currentMonth = currentMonth+1;
-	if(currentDate<10){currentDate='0'+currentDate}
-	if(currentMonth<10){currentMonth='0'+currentMonth}
-	//document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;	
+     $(function() { 
+    var date = new Date();
+     currentMonth = date.getMonth();
+     currentDate = date.getDate();
+     currentYear = date.getFullYear();
+    $('#delDate').datepicker({
+    maxDate: new Date(currentYear, currentMonth, currentDate)
+    });
+  });
+  currentMonth = currentMonth+1;
+  if(currentDate<10){currentDate='0'+currentDate}
+  if(currentMonth<10){currentMonth='0'+currentMonth}
+  //document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;  
     j("#accountHead").change(function() {
       getExpenseNamesBasedOnAccountHead();
   });
      j("#opBudget").change(function() {
       getOperationalBudget();
   });
-		onloadPr();
-	  </script> 
+    onloadPr();
+    </script> 
