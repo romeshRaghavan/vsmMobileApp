@@ -1068,7 +1068,7 @@ function setUserSessionDetails(val,userJSON){
 	 window.localStorage.setItem("prRole",val.prRole);
 	 window.localStorage.setItem("EmployeeId",val.empId);
 	 window.localStorage.setItem("EmployeeName",val.empName);
-	 window.localStorage.setItem("BudgetingStatus",val.BudgetingStatus);
+	 window.localStorage.setItem("budgetingStatus",val.BudgetingStatus);
 	 window.localStorage.setItem("BudgetingInitiates",val.budgetingInitiates);
 	 window.localStorage.setItem("UnitId",val.unitId);	
 	 window.localStorage.setItem("UserName",userJSON["user"]);
@@ -1682,7 +1682,7 @@ function synchronizeTRForTS() {
 										var po_Reqd = stateArr.POReqd;
 										var grn_Reqd = stateArr.GRNReqd;
 										var acc_code_id = stateArr.AcCodeId;
-										t.executeSql("INSERT INTO itemMst (itemId ,itemCode ,accCodeId ,poReqd ,grnReqd) VALUES (?, ?, ?, ?, ?)", [item_Id,item_Name,acc_code_id,po_Reqd,acc_code_id]);
+										t.executeSql("INSERT INTO itemMst (itemId ,itemCode ,accCodeId ,poRequired ,grnRequired) VALUES (?, ?, ?, ?, ?)", [item_Id,item_Name,acc_code_id,po_Reqd,acc_code_id]);
 									}
 									document.getElementById("syncSuccessMsg").innerHTML = "Item Master synchronized Successfully.";
 									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
