@@ -172,7 +172,16 @@ function commanLogin(){
       appPageHistory.push(pageRef);
 	 }
 
-
+function createPurchaseReq(){
+	resetImageData();
+	var headerBackBtn=defaultPagePath+'backbtnPage.html';
+    var pageRef=defaultPagePath+'addPurchaseReq.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+      appPageHistory.push(pageRef);
+	 }
 	 function createWallet(){
 		 
 		 var headerBackBtn=defaultPagePath+'headerPageForWalletOperation.html';
