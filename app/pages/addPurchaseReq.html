@@ -1,0 +1,104 @@
+      <div class="modal-body clearfix">
+        <div class="row">
+          <div class="col-lg-12 clearfix addanexpense">
+            <h1>Add Purchase Requisition</h1>
+            <div class="expenseform clearfix" data-role="page" id="page1">
+              <ul>
+                <li>
+                  <p><font face="verdana" size="1" color="green">PR Title</font></span></p>
+                  <input id="prTitle" type="text" placeholder="Enter Title">
+				</li>
+                
+                <!-- Displayed on basis of budgeting status -->
+	                <li id="budget">
+	                  <input id="opBudget" type="hidden" style="width: 98%">
+	                </li>
+	                <li id="nonBudget" style="display:none">
+	                  <input id="opBudget" type="hidden" style="width: 98%">
+	                </li>
+                <!-- Displayed on basis of budgeting status -->
+                 
+                <li>
+                  <input id="accountHead" type="hidden" style="width: 98%">
+                </li>
+                
+                <li>
+                  <p><font face="verdana" size="1" color="green">PO can be raised at:</font></span></p>
+                  		<input type="radio" name="poRaised" value="S" checked>Sub-Zone<br>
+ 						<input type="radio" name="poRaised" value="H"> HO<br>
+  						<input type="radio" name="poRaised" value="B"> Both
+                </li>
+                
+                <li>
+                  <p><font face="verdana" size="1" color="green">GRN can be raised at:</font></span></p>
+                  		<input type="radio" name="grnRaised" value="H" checked>HO<br>
+ 						<input type="radio" name="grnRaised" value="Z"> Zone<br>
+ 						<input type="radio" name="grnRaised" value="L"> Location<br>
+  						<input type="radio" name="grnRaised" value="A"> All
+                </li>
+                
+                <li>
+                  <p><font face="verdana" size="1" color="green">Type of account code:</font></span></p>
+                  		<input type="radio" name="acCodeType" value="C" checked>Capex<br>
+ 						<input type="radio" name="acCodeType" value="O"> Opex<br>
+  						<input type="radio" name="acCodeType" value="B"> Both
+                </li>
+                
+				<!-- <li>
+				  <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
+                  <input id="expUnit" type="tel" style="width: 22%" placeholder="Units" onkeyup="calculatePerUnit();">
+				  <input id="expAmt" type="tel" style="width: 38%" placeholder="Amount" onkeyup="checkPerUnitExceptionStatusForBEAtLineLevel();">
+                  <input id="currency" type="hidden" style="width: 33%">
+				  <p id="errorMsgArea" ><span id="errorSpan"></span></p>
+				</li>
+				
+               <div >
+				<li style="text-align:left;">
+                  <ul>
+					  <img src="images/camera.png" onclick="capturePhoto(0,'BE');" width="15%" height="15%" >
+					  <img src="images/gallery.png" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');" width="15%" height="15%" >
+					  <img style="display:none;width:40%;height:100px;align:right;" id="smallImageBE" src="" />
+					  <input style="display:none;" type="file" id="imageBE" />
+				  </ul>
+				 </li> -->
+			   </div>
+			
+            <div  style="display:none" id="displayText" class="displayTextCSS">
+               Expenses added successfully.
+           </div>
+		   <div style="text-align:center;">
+            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="saveBusinessDetails(0);">Save &amp; New</button>
+            <button class="btn btn-primary btn-lg " style="width: 40%" onclick="saveBusinessDetails(1);">Save &amp; Go to Synch</button>
+			</div>
+          </div>
+          </div>
+        </div>
+		<div style="display:none" id="loading_Cat" >
+               <img src="images/loading2.gif" id="loading-image_Cat" alt="Loading..." >
+		</div>
+      </div>
+	  <script>
+var currentMonth;
+var currentDate;
+var currentYear;
+		 $(function() { 
+		var date = new Date();
+		 currentMonth = date.getMonth();
+		 currentDate = date.getDate();
+		 currentYear = date.getFullYear();
+		$('#expDate').datepicker({
+		maxDate: new Date(currentYear, currentMonth, currentDate)
+		});
+	});
+	currentMonth = currentMonth+1;
+	if(currentDate<10){currentDate='0'+currentDate}
+	if(currentMonth<10){currentMonth='0'+currentMonth}
+	document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;	
+    j("#accountHead").change(function() {
+      getExpenseNamesBasedOnAccountHead();
+  });
+     j("#expenseName").change(function() {
+      getPerUnitBasedOnExpense();
+  });
+		onloadExpense();
+	  </script> 

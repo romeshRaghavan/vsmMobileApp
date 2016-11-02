@@ -1,0 +1,466 @@
+/*#mainContainer {
+    padding: 15px;
+    width: 100%;
+    overflow-x: hidden;
+
+  }
+
+  .logoplace {
+  background-color:#ffffff;
+  
+  border-radius:0px;
+  padding:10px;
+  text-align:center;
+  border-bottom: 1px solid #14a6c5;
+}*/
+
+
+
+
+.modal-footer {
+	border-top: 0px;
+}
+.modal-dialog {
+	background: #ffffff;
+	/* Old browsers */
+  background: -moz-linear-gradient(-45deg, #ffffff 0%, #ffffff 100%);
+	/* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
+	/* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(-45deg, #ffffff 0%, #ffffff 100%);
+	/* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(-45deg, #ffffff 0%, #ffffff 100%);
+	/* Opera 11.10+ */
+  background: -ms-linear-gradient(-45deg, #ffffff 0%, #ffffff 100%);
+	/* IE10+ */
+  background: linear-gradient(-45deg, #ffffff 0%, #ffffff 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff, GradientType=1);
+/* IE6-9 fallback on horizontal gradient */
+}
+.logoplace {
+	background-color: #ffffff;
+	border-bottom: 0px solid #14a6c5;
+	border-radius: 0;
+	padding: 20px 0 10px;
+	text-align: center;
+}
+.modal-body span {
+	display: block;
+	font-weight: bold;
+	text-align: center;
+}
+.allexpebtn {
+	text-align:center;
+	overflow-x: scroll;
+}
+.allexpebtn div {
+	border-bottom: 1px solid #e5e5e5;
+	margin: 0;
+	padding: 20px 0;
+}
+.expsync {
+	text-align:center;
+	margin-top:0px;
+}
+.expsync a {
+	color: #337ab7;
+	font-size: 18px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+.expsync .col-lg-6 {
+	margin-bottom:25px;
+}
+.addanexpense li {
+	list-style-type: none;
+	text-align:center;
+	margin-bottom:10px;
+}
+.expenseform input, .expenseform select, #myTabContent input, #myTabContent select {
+	width:98%;
+	padding:5px;
+	border:1px solid #cccccc;
+	background-color:#ffffff;
+	color:#000000;
+}
+.FileUpload {
+	margin: 0 auto;
+	position: relative;
+	width: 98%;
+}
+.BrowserVisible {
+	left: 0;
+	position: absolute;
+	text-align: left;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+.FileField {
+	border:none;
+	width:86% !important;
+}
+.BrowserHidden {
+	position:relative;
+	-moz-opacity:0;
+ filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+	height:80px;
+}
+.footer {
+	border-top: 1px solid #e5e5e5;
+	color: #000000;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0 0 15px;
+	padding-top: 15px;
+	text-align: center;
+}
+.addanexpense p {
+	color: #454545;
+	font-weight: bold;
+	margin: 0 auto 4px;
+	text-align: left;
+	width: 98%;
+}
+.table-responsive td:first-child {
+	font-weight:bold;
+	color:#454554;
+}
+.dp1 {
+	cursor:pointer;
+}
+#source tr td {
+	border: 2px #DDD solid;
+	padding: 2px;
+	cursor: pointer;
+}
+.selected {
+	background-color: brown !important;
+	color: #FFF;
+}
+.addexpenselogo {
+	background-image: url("../images/add-expense.png");
+    background-repeat: no-repeat;
+    width: 55px;
+    height: 55px;
+    margin-top: 15%;
+    margin-bottom: 3%;
+    margin-left: 30%;
+	margin-right: 70px;
+}
+.displayexpenselogo {
+	background-image: url("../images/view-expense.png");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 55px;
+	margin-top: 15%;
+	margin-bottom: 3%;
+    margin-left: 30%;
+	margin-right: 70px;
+}
+.addtravellogo {
+	background-image: url("../images/travel-request.png");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 55px;
+	margin-top: 15%;
+	margin-bottom: 3%;
+    margin-left: 30%;
+	margin-right: 70px;
+}
+.addtravelSettlelogo {
+	background-image: url("../images/settlemnt.png");
+	background-repeat: no-repeat;
+	width: 70px; 
+	height: 55px;
+	margin-top: 15%;
+	margin-bottom: 3%;
+    margin-left: 30%;
+	margin-right: 70px;
+}
+.createwalletlogo {
+	background-image: url("../images/wallet.png");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 55px;
+	margin-top: 15%;
+	margin-bottom: 3%;
+    margin-left: 30%;
+	margin-right: 70px;
+}
+#mainContainer {
+    float: left;
+    overflow-x: hidden;
+    padding: 12% 6% 12%;
+    width: 100%;
+}
+.selected {
+	background-color: #14A6C5 !important;
+}
+.displayNone {
+	display: none;
+}
+.headerposition {
+    bottom: 6px;
+    display: block;
+    float: none;
+    left: 17%;
+    margin: 0 auto;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+}
+#errorSpan {
+	font-size: 11px;
+	color: red;
+	font-weight: normal;
+}
+#errorMsg {
+	font-size: 13px;
+	color: red;
+}
+.displayTextCSS {
+	background-color: #000000;
+	border: 1px solid #14a6c5;
+	border-radius: 9px;
+	color: #E8D5D5;
+	font-weight: bold;
+	height: auto;
+	margin: 5px auto;
+	padding: 6px;
+	position: absolute;
+	right: 18px;
+	top: -50px;
+	width: 252px;
+	opacity: 0.7;
+}
+.displayTextError {
+	background-color: #E1E1E1;
+	border: 1px solid #B5B5B5;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-weight: bold;
+	height: auto;
+	margin: 5px auto;
+	padding: 6px;
+	position: absolute;
+	right: 57px;
+	top: -37px;
+	width: 252px;
+	opacity: 0.9;
+}
+
+.displayTextTSCSS {
+	background-color: #000000;
+	border: 1px solid #14a6c5;
+	border-radius: 9px;
+	color: #E8D5D5;
+	font-weight: bold;
+	height: auto;
+	margin: 5px auto;
+	padding: 6px;
+	position: absolute;
+	right: 18px;
+	top: 430px;
+	width: 252px;
+	opacity: 0.7;
+}
+.displayTextTSError {
+	background-color: #E1E1E1;
+	border: 1px solid #B5B5B5;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-weight: bold;
+	height: auto;
+	margin: 5px auto;
+	padding: 6px;
+	position: absolute;
+	right: 57px;
+	top: -37px;
+	width: 252px;
+	opacity: 0.9;
+}
+.backarrowbtn {
+    bottom: 6px;
+    left: 4px;
+    position: absolute;
+    text-align: left;
+    z-index: 999;
+    cursor: pointer;
+}
+.displaysynctext {
+	background-color: #000000;
+	border: 1px solid #14a6c5;
+	border-radius: 9px;
+	color: #E8D5D5;
+	font-weight: bold;
+	height: auto;
+	margin: 5px auto;
+	padding: 6px;
+	position: absolute;
+	right: 58px;
+	top: -45px;
+	width: 252px;
+	opacity: 0.7;
+	margin-top: 80%;
+}
+.displaywalletmsg {
+	background-color: #000000;
+	border: 1px solid #14a6c5;
+	border-radius: 9px;
+	color: #E8D5D5;
+	font-weight: bold;
+	height: auto;
+	margin: 5px auto;
+	padding: 6px;
+	position: absolute;
+	right: 58px;
+	top: -45px;
+	width: 252px;
+	opacity: 0.7;
+	margin-top: 80%;
+}
+
+.displayloginErrotext {
+    background-color: #000000;
+    border: 1px solid #14a6c5;
+    border-radius: 9px;
+    color: #E00202;
+    font-weight: bold;
+    height: auto;
+    margin: 5px auto;
+    padding: 6px;
+    position: absolute;
+    right: 7%;
+    top: -45px;
+    width: 252px;
+    opacity: 0.7;
+    margin-top: 4%;
+}
+
+#loading {
+   width: 100%;
+   height: 100%;
+   top: 0px;
+   left: 0px;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 100px;
+  left: 33%;
+  z-index: 100;
+  max-width: 35%;
+}
+
+#loading_Cat {
+   width: 100%;
+   height: 100%;
+   top: 0px;
+   left: 0px;
+   position: fixed;
+   display: block;
+   opacity: 0.7;
+   background-color: #fff;
+   z-index: 99;
+   text-align: center;
+}
+
+#loading-image_Cat {
+  position: absolute;
+  top: 100px;
+  left: 33%;
+  z-index: 100;
+  max-width: 35%;
+}
+.expenzingImg{
+    position: absolute;
+    top: -2px;
+    left: 63%;
+    z-index: 100;
+    max-width: 200%;
+}
+.expenzingMainImg{
+	position: absolute;
+    top: 11px;
+    left: 4%;
+    z-index: 100;
+    max-width: 8%;
+}
+.selectionDeletePRBtns{
+	position: absolute;
+    top: 13px;
+    left: 77%;
+    z-index: 100;
+    max-width: 15%;
+}
+.selectionSynchPRBtns{
+	position: absolute;
+    top: 10px;
+    left: 62%;
+    z-index: 100;
+    max-width: 15%;
+}
+.selectionSubmitPRBtns{
+	position: absolute;
+    top: 11px;
+    left: 46%;
+    z-index: 100;
+    max-width: 14%;
+}
+.Cell
+    {
+        display: table-cell;
+        border-width: thin;
+        padding-left: 5%;
+        padding-right: 5%;
+	}
+
+.Table
+    {
+       display: table;
+	   padding: 5%;
+  }	
+  
+
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 5px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 3px;
+    border: 2px solid #cccccc;
+}
+::-webkit-scrollbar-track {
+    border-radius: 3px;  
+    background-color: #ffffff; 
+}
+.directionlogo {
+	background-image: url("../images/Direction.png");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 22px;
+	margin-top: 2%;
+	margin-bottom: -8%;
+    margin-left: 30%;
+	margin-right: 70px;
+}
