@@ -470,22 +470,23 @@ function createTRAccHeadDropDown(jsonAccHeadArr){
 	});
 }
 
-function createExpNameDropDown(jsonExpNameArr){
-	var jsonExpArr = [];
-	if(jsonExpNameArr != null && jsonExpNameArr.length > 0){
-		for(var i=0; i<jsonExpNameArr.length; i++ ){
+function createOperationalBudgetDropDown(jsonBudgetNameArr){
+	var jsonBudgetArr = [];
+	if(jsonBudgetNameArr != null && jsonBudgetNameArr.length > 0){
+		for(var i=0; i<jsonBudgetNameArr.length; i++ ){
 			var stateArr = new Array();
-			stateArr = jsonExpNameArr[i];
-			jsonExpArr.push({id: stateArr.ExpenseID,name: stateArr.ExpenseName});
+			stateArr = jsonBudgetNameArr[i];
+			jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			//jsonBudgetArr.push({id: stateArr.operationalBudgetId,name: stateArr.operationalBudgetName});
 		}
 	}
 		
-	j("#expenseName").select2({
-		data:{ results: jsonExpArr, text: 'name' },
-		placeholder: "Expense Name",
+	j("#opBudget").select2({
+		data:{ results: jsonBudgetArr, text: 'name' },
+		placeholder: "Budget Name",
 		minimumResultsForSearch: -1,
 		initSelection: function (element, callback) {
-			callback(jsonExpArr[0]);
+			callback(jsonBudgetArr[0]);
 		},
 		formatResult: function(result) {
 			if ( ! isJsonString(result.id))
@@ -1149,6 +1150,12 @@ function onloadTimePicker(){
 
  	var accountHeadID = j("#accountHead").select2('data').id;
       getExpenseNamesfromDB(accountHeadID);
+ }
+
+ function getOperationalBudget(){
+
+ 	var opBudgetID = j("#opBudget").select2('data').id;
+       getOperationalBudgetFromDB(opBudgetID);
  }
 
 

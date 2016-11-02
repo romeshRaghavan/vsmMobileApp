@@ -1,49 +1,58 @@
       <div class="modal-body clearfix">
         <div class="row">
           <div class="col-lg-12 clearfix addanexpense">
-            <h1>Add Purchase Requisition</h1>
+            <h1 >Add Purchase Requisition</h1>
             <div class="expenseform clearfix" data-role="page" id="page1">
               <ul>
                 <li>
-                  <p><font face="verdana" size="1" color="green">PR Title</font></span></p>
-                  <input id="prTitle" type="text" placeholder="Enter Title">
+                  <p style="text-align:center;"><font face="verdana" size="1" color="green" >PR TITLE</font></span></p>
+        <input id="prTitle" type="text" align="center" placeholder="Enter Title">
 				</li>
                 
                 <!-- Displayed on basis of budgeting status -->
+  <div id="Budgeting">
+  <p style="text-align:center;"><font face="verdana" size="1" color="green" >OPERATIONAL BUDGET</font></span></p>
 	                <li id="budget">
-	                  <input id="opBudget" type="hidden" style="width: 98%">
+	                  <input id="opBudget" type="hidden"  style="width: 98%">
 	                </li>
-	                <li id="nonBudget" style="display:none">
-	                  <input id="opBudget" type="hidden" style="width: 98%">
-	                </li>
-                <!-- Displayed on basis of budgeting status -->
-                 
+	                </div> 
+                                 <!-- Displayed on basis of budgeting status -->
+    <p style="text-align:center;"><font face="verdana" size="1" color="green">ACCOUNT HEAD</font>
                 <li>
                   <input id="accountHead" type="hidden" style="width: 98%">
                 </li>
-                
+
                 <li>
-                  <p><font face="verdana" size="1" color="green">PO can be raised at:</font></span></p>
-                  		<input type="radio" name="poRaised" value="S" checked>Sub-Zone<br>
- 						<input type="radio" name="poRaised" value="H"> HO<br>
-  						<input type="radio" name="poRaised" value="B"> Both
+    <p style="text-align:center;"><font face="verdana" size="1" color="green">PO CAN BE RAISED AT:</font></p>
+                <table align="center">
+                <td><input type="radio" id="poRaised" name="poRaised" value="S" checked>Sub-Zone&nbsp;&nbsp;</td>
+              
+                <td><input type="radio" id="poRaised" name="poRaised" value="H" > HO&nbsp;&nbsp;</td>
+               
+                <td><input type="radio" id="poRaised" name="poRaised" value="B"> Both&nbsp;&nbsp;</td> 
+                </table>
+             
                 </li>
                 
                 <li>
-                  <p><font face="verdana" size="1" color="green">GRN can be raised at:</font></span></p>
-                  		<input type="radio" name="grnRaised" value="H" checked>HO<br>
- 						<input type="radio" name="grnRaised" value="Z"> Zone<br>
- 						<input type="radio" name="grnRaised" value="L"> Location<br>
-  						<input type="radio" name="grnRaised" value="A"> All
+  <p style="text-align:center;"><font face="verdana" size="1" color="green">GRN CAN BE RAISED AT:</font></span></p>
+           <table align="center">
+            <td><input type="radio" id="grnRaised" name="grnRaised" value="H" checked>HO&nbsp;&nbsp;</td>
+ 						<td><input type="radio" id="grnRaised" name="grnRaised" value="Z"> Zone&nbsp;&nbsp;</td>
+ 					  <td><input type="radio" id="grnRaised" name="grnRaised" value="L"> Location&nbsp;&nbsp;</td>
+  					<td><input type="radio" id="grnRaised" name="grnRaised" value="A"> All&nbsp;&nbsp;</td>
+            </table>
                 </li>
                 
                 <li>
-                  <p><font face="verdana" size="1" color="green">Type of account code:</font></span></p>
-                  		<input type="radio" name="acCodeType" value="C" checked>Capex<br>
- 						<input type="radio" name="acCodeType" value="O"> Opex<br>
-  						<input type="radio" name="acCodeType" value="B"> Both
-                </li>
-                
+  <p style="text-align:center;"><font face="verdana" size="1" color="green">TYPE OF ACCOUNT CODE:</font></span></p>
+          <table align="center">
+            <td><input type="radio" id="acCodeType" name="acCodeType" value="C" checked>Capex&nbsp;&nbsp;</td>
+ 						<td><input type="radio" id="acCodeType" name="acCodeType" value="O"> Opex&nbsp;&nbsp;</td>
+  					<td><input type="radio" id="acCodeType" name="acCodeType" value="B"> Both&nbsp;&nbsp;</td>
+            </table>
+               </li>
+               
 				<!-- <li>
 				  <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
                   <input id="expUnit" type="tel" style="width: 22%" placeholder="Units" onkeyup="calculatePerUnit();">
@@ -67,8 +76,8 @@
                Expenses added successfully.
            </div>
 		   <div style="text-align:center;">
-            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="saveBusinessDetails(0);">Save &amp; New</button>
-            <button class="btn btn-primary btn-lg " style="width: 40%" onclick="saveBusinessDetails(1);">Save &amp; Go to Synch</button>
+            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(0);">NEXT</button>
+            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(1);">CANCEL</button>
 			</div>
           </div>
           </div>
@@ -86,19 +95,19 @@ var currentYear;
 		 currentMonth = date.getMonth();
 		 currentDate = date.getDate();
 		 currentYear = date.getFullYear();
-		$('#expDate').datepicker({
+		$('#delDate').datepicker({
 		maxDate: new Date(currentYear, currentMonth, currentDate)
 		});
 	});
 	currentMonth = currentMonth+1;
 	if(currentDate<10){currentDate='0'+currentDate}
 	if(currentMonth<10){currentMonth='0'+currentMonth}
-	document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;	
+	//document.getElementById("expDate").value=currentMonth+"/"+currentDate+"/"+currentYear;	
     j("#accountHead").change(function() {
       getExpenseNamesBasedOnAccountHead();
   });
-     j("#expenseName").change(function() {
-      getPerUnitBasedOnExpense();
+     j("#opBudget").change(function() {
+      getOperationalBudget();
   });
-		onloadExpense();
+		onloadPr();
 	  </script> 

@@ -1,0 +1,97 @@
+      <div class="modal-body clearfix">
+        <div class="row">
+          <div class="col-lg-12 clearfix addanexpense">
+            
+            <div class="expenseform clearfix" data-role="page" id="page2">
+            <h1 >Add Purchase Requisition</h1>
+<li>
+<div id="Budgeting">
+
+               <p style="text-align:center;"><font face="verdana" size="1" color="green">SHIP TO LOCATION
+               </font></p>
+                  <li id="budget">
+                    <input id="opBudget" type="hidden"  style="width: 98%">
+                  </li>
+</div>        
+</li>
+<li>
+  <p style="text-align:center;"><font face="verdana" size="1" color="green">ITEM CODE</font></p>
+   <li>
+    <input id="accountHead" type="hidden" style="width: 98%">
+     </li>
+</li>
+                
+
+    <li>
+<div role="main" class="ui-content">
+ <p style="text-align:center;"><font face="verdana" size="1" color="green">Delivery Date:</font></p>
+ <input id="delDate" type="text"  style="text-align:center;width: 98%;border: solid #cccccc; border-width: 1px" readonly="readonly" placeholder="DELIVERY DATE">
+ </div>
+       </li>
+
+     <li>
+
+    <table align="center">
+    <td><input id="prTitle1" type="text"  placeholder="QTY" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+ 
+    <td><input id="prTitle2" type="text"  placeholder="Rate" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+    
+    <td><input id="prTitle3" type="text"  placeholder="Value" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+    </table>
+
+      </li>
+
+<li>
+ <p style="text-align:center;"><font face="verdana" size="1" color="green">COST CENTER</font></p>
+<li>
+<input id="accountHead2" type="text" style="text-align:center;width: 95%;border: solid #cccccc; border-width: 1px">
+</li>  
+</li>
+
+<li>
+ <p style="text-align:center;"><font face="verdana" size="1" color="green">BUDGET NAME</font></p>
+<li>
+<input id="accountHead2" type="text" style="text-align:center;width: 95%;border: solid #cccccc; border-width: 1px">
+</li>  
+</li>
+			  
+            <div  style="display:none" id="displayText" class="displayTextCSS">
+               Expenses added successfully.
+           </div>
+		   <div style="text-align:center;">
+            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(0);">NEXT</button>
+            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(1);">CANCEL</button>
+			</div>
+          </div>
+          </div>
+        </div>
+		<div style="display:none" id="loading_Cat" >
+               <img src="images/loading2.gif" id="loading-image_Cat" alt="Loading..." >
+		</div>
+      </div>
+	  <script>
+var currentMonth;
+var currentDate;
+var currentYear;
+		 $(function() { 
+		var date = new Date();
+		 currentMonth = date.getMonth();
+		 currentDate = date.getDate();
+		 currentYear = date.getFullYear();
+		$('#delDate').datepicker({
+		maxDate: new Date(currentYear, currentMonth, currentDate)
+		});
+	});
+	currentMonth = currentMonth+1;
+	if(currentDate<10){currentDate='0'+currentDate}
+	if(currentMonth<10){currentMonth='0'+currentMonth}
+	document.getElementById("delDate").value=currentMonth+"/"+currentDate+"/"+currentYear;
+
+    j("#accountHead").change(function() {
+      getExpenseNamesBasedOnAccountHead();
+  });
+     j("#opBudget").change(function() {
+      getOperationalBudget();
+  });
+		onloadPr();
+	  </script> 

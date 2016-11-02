@@ -899,12 +899,25 @@ function synchronizeBEMasterData() {
     }
  }
  
- function onloadExpense() {
+  function onloadPr() {
+ 	
+ 		var BudgetingStatus = window.localStorage.getItem("BudgetingStatus");
+ 	
+ 		if(BudgetingStatus =='N'){
+ 			
+ 			document.getElementById("Budgeting").style.display = "none";
+ 		}
+ 		else{
+ 			document.getElementById("Budgeting").style.display = "";
+ 		}
+ 	
 	if (mydb) {
 		mydb.transaction(function (t) {
 				t.executeSql("SELECT * FROM accountHeadMst", [], getAccHeadList);
-				t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
+				t.executeSql("SELECT * FROM accountHeadMst", [], getOperationalBudgetList);
+				/*t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
 				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
+				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);*/
 			});
 	} else {
 		alert("db not found, your browser does not support web sql!");
@@ -922,7 +935,7 @@ function synchronizeBEMasterData() {
 		jsonAccHeadArr.push(jsonFindAccHead);
 	}
 	createAccHeadDropDown(jsonAccHeadArr);
-}	 
+}
 function getTrAccHeadList(transaction, results) {
 	var i;
 	var jsonAccHeadArr = [];
@@ -935,20 +948,21 @@ function getTrAccHeadList(transaction, results) {
 	}
 	createTRAccHeadDropDown(jsonAccHeadArr);
 }	
-function getExpNameList(transaction, results) {
-    var i;
-	var jsonExpNameArr = [];
-	
-	for (i = 0; i < results.rows.length; i++) {
+function getOperationalBudgetList(transaction, results) {
+ var jsonBudgetNameArr = [];
+ var jsonFindAccHead = [];
+    if(results!=null){
+	 for (i = 0; i < results.rows.length; i++) {
         var row = results.rows.item(i);
-		var jsonFindExpNameHead = new Object();
-
-		jsonFindExpNameHead["ExpenseID"] = row.id;
-		jsonFindExpNameHead["ExpenseName"] = row.expName;
-		
-		jsonExpNameArr.push(jsonFindExpNameHead);
-	}
-	createExpNameDropDown(jsonExpNameArr);
+   /*  operationalBudgetDetailsJSON["operationalBudgetId"]=row.operationalBudgetId;
+	 operationalBudgetDetailsJSON["operationalBudgetName"]=row.operationalBudgetName;*/
+		jsonFindAccHead["Label"] = row.accountHeadId;
+		jsonFindAccHead["Value"] = row.accHeadName;
+		jsonBudgetNameArr.push(jsonFindAccHead);
+	//jsonBudgetNameArr.push(operationalBudgetDetailsJSON);
+	 }
+	createOperationalBudgetDropDown(jsonBudgetNameArr)
+ }
 }
 
 function getCurrencyList(transaction, results) {
@@ -1312,12 +1326,13 @@ function fetchTravelDomOrInterDate(transaction, results) {
 
 
 
-function getPerUnitFromDB(expenseNameID){
+function getOperationalBudgetFromDB(opBudgetID){
 	j('#errorMsgArea').children('span').text("");
 	if(mydb) {
  		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
         mydb.transaction(function (t) {
-			t.executeSql("SELECT * FROM expNameMst where id="+expenseNameID, [], setPerUnitDetails);
+			//t.executeSql("SELECT * FROM operationalBudgetMst where id="+opBudgetID, [], getOperationalBudgetList);
+			t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
 		});
     } else {
         alert("db not found, your browser does not support web sql!");
