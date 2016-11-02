@@ -671,7 +671,8 @@ function validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_h
 		alert("Account Head is invalid");
 		return false;
 	}
-	if(opBudget_id == "-1"){
+	var BudgetingStatus = window.localStorage.getItem("BudgetingStatus");
+	if(BudgetingStatus =='Y' && opBudget_id == "-1"){
 		alert("operationalBudgetName is invalid");
 		return false;
 	}
