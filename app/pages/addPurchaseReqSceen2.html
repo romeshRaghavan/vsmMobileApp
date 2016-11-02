@@ -32,11 +32,11 @@
      <li>
 
     <table align="center">
-    <td><input id="prTitle1" type="text"  placeholder="QTY" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+    <td><input id="prquantity" type="text"  placeholder="QTY" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
  
-    <td><input id="prTitle2" type="text"  placeholder="Rate" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+    <td><input id="prrate" type="text"  placeholder="Rate" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px" onkeyup ="CalulateRatePerQuantity();"></td>
     
-    <td><input id="prTitle3" type="text"  placeholder="Value" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+    <td><input id="prvalue" type="text"  placeholder="Value" style="text-align:center;width: 70%;border: solid #cccccc; border-width: 1px"></td>
     </table>
 
       </li>
@@ -59,8 +59,8 @@
                Expenses added successfully.
            </div>
 		   <div style="text-align:center;">
-            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(0);">NEXT</button>
-            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(1);">CANCEL</button>
+            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(0);">Save & New</button>
+            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePrDetails(1);">Save & Goto Sync</button>
 			</div>
           </div>
           </div>

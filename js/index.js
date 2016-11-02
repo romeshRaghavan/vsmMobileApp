@@ -2002,3 +2002,17 @@ function synchronizePRMaster()
 		}
 	}
 }
+
+ function CalulateRatePerQuantity()
+ {
+ 	var rate =document.getElementById("prrate").value;
+ 	var quantity =document.getElementById("prquantity").value;
+ 	if( rate != 0 &&  quantity !=0){
+ 		var Value = rate * quantity;
+
+ 		document.getElementById("prvalue").value = Value ;
+ 	}
+ 	else{
+ 		alert("Quantity or Amount Can not be zero ");
+ 	}
+ }
