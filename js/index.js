@@ -59,7 +59,7 @@ function login()
 			  setUserStatusInLocalStorage("Valid");
 			  setUserSessionDetails(data,jsonToBeSend);
 			  if(data.prRole){
-			  	if(data.BudgetingInitiates == 'P' && data.BudgetingStatus == 'Y'){
+			  	if(data.budgetingInitiates == 'P' && data.budgetingStatus == 'Y'){
 					 synchronizePRMasterData();
 			  	}else{
 			  		synchronizePRMasterDataNonBudget();
@@ -671,7 +671,7 @@ function validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_h
 		alert("Account Head is invalid");
 		return false;
 	}
-	var BudgetingStatus = window.localStorage.getItem("BudgetingStatus");
+	var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
 	if(BudgetingStatus =='Y' && opBudget_id == "-1"){
 		alert("operationalBudgetName is invalid");
 		return false;
@@ -1992,8 +1992,8 @@ function validateValidMobileUser(){
 function synchronizePRMaster()
 {
 	var prRole = window.localStorage.getItem("prRole");
-	var budgetingStatus = window.localStorage.getItem("BudgetingStatus");
-	var budgetingInitiates = window.localStorage.getItem("BudgetingInitiates");
+	var budgetingStatus = window.localStorage.getItem("budgetingStatus");
+	var budgetingInitiates = window.localStorage.getItem("budgetingInitiates");
 
 	if(prRole){
 		if(budgetingStatus == 'Y' && budgetingInitiates == 'P'){

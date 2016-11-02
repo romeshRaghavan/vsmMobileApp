@@ -136,7 +136,7 @@ if (window.openDatabase) {
 	mydb.transaction(function (t) {
 		t.executeSql("CREATE TABLE IF NOT EXISTS locationMst (locationId INTEGER PRIMARY KEY ASC, locationName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS operationalBudgetMst (opBudgetId INTEGER PRIMARY KEY ASC, opBudgetName TEXT)");
-		t.executeSql("CREATE TABLE IF NOT EXISTS corporateBudget (corporateId INTEGER PRIMARY KEY ASC, corporateName TEXT,accCodeId INTEGER REFERENCES accCodeMst(accCodeId))");
+		t.executeSql("CREATE TABLE IF NOT EXISTS corporateBudget (corporateId INTEGER PRIMARY KEY ASC, accCodeId INTEGER REFERENCES accCodeMst(accCodeId))");
 		t.executeSql("CREATE TABLE IF NOT EXISTS accHeadMst (acHeadId INTEGER PRIMARY KEY ASC, acHeadName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS accCodeMst (accCodeId INTEGER PRIMARY KEY ASC, acHeadId INTEGER REFERENCES accountHeadMst(acHeadId),accCodeName TEXT,capexOpex TEXT )");
 		t.executeSql("CREATE TABLE IF NOT EXISTS itemMst (itemId INTEGER PRIMARY KEY ASC, itemCode TEXT, accCodeId INTEGER REFERENCES accCodeMst(accCodeId),poRequired TEXT,grnRequired TEXT)");
@@ -881,7 +881,7 @@ function synchronizeBEMasterData() {
  
   function onloadPr() {
  	
- 		var BudgetingStatus = window.localStorage.getItem("BudgetingStatus");
+ 		var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
  	
  		if(BudgetingStatus =='N'){
  			
@@ -1068,8 +1068,8 @@ function setUserSessionDetails(val,userJSON){
 	 window.localStorage.setItem("prRole",val.prRole);
 	 window.localStorage.setItem("EmployeeId",val.empId);
 	 window.localStorage.setItem("EmployeeName",val.empName);
-	 window.localStorage.setItem("budgetingStatus",val.BudgetingStatus);
-	 window.localStorage.setItem("BudgetingInitiates",val.budgetingInitiates);
+	 window.localStorage.setItem("budgetingStatus",val.budgetingStatus);
+	 window.localStorage.setItem("budgetingInitiates",val.budgetingInitiates);
 	 window.localStorage.setItem("UnitId",val.unitId);	
 	 window.localStorage.setItem("UserName",userJSON["user"]);
 	 window.localStorage.setItem("Password",userJSON["pass"]);
@@ -1483,7 +1483,7 @@ function synchronizeTRForTS() {
 	function synchronizePRMasterDataNonBudget() {
 		alert("inside of synchronizePRMasterDataNonBudget")
 		var jsonSentToSync=new Object();
-		jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
+		jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("budgetingStatus");
 		jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
 		jsonSentToSync["GradeId"] = window.localStorage.getItem("GradeID");
 		jsonSentToSync["UnitId"] = window.localStorage.getItem("UnitId");
@@ -1595,7 +1595,7 @@ function synchronizeTRForTS() {
 	function synchronizePRMasterData() {
 		var jsonSentToSync=new Object();
 		
-		jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
+		jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("budgetingStatus");
 		jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
 		jsonSentToSync["UnitId"] = window.localStorage.getItem("unitId");
 		
@@ -1635,7 +1635,7 @@ function synchronizeTRForTS() {
 										var corporate_Id = stateArr.CorporateId;
 										var ac_Code_Id = stateArr.AcCodeId;
 										//account_code_id = 1;
-										t.executeSql("INSERT INTO corporateBudget (corporateId ,ac_Code_Id) VALUES (?, ?)", [corporate_Id,ac_Code_Id]);
+										t.executeSql("INSERT INTO corporateBudget (corporateId ,accCodeId) VALUES (?, ?)", [corporate_Id,ac_Code_Id]);
 									}
 									document.getElementById("syncSuccessMsg").innerHTML = "Corporate Budget synchronized Successfully.";
 									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
@@ -1699,7 +1699,7 @@ function synchronizeTRForTS() {
 										account_code_id = 1;
 										t.executeSql("INSERT INTO costCenterMst (costCenterId ,costCenterName) VALUES (?, ?)", [cost_center_Id,cost_center_Name]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Corporate Budget synchronized Successfully.";
+									document.getElementById("syncSuccessMsg").innerHTML = "Cost center synchronized Successfully.";
 									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
