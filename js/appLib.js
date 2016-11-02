@@ -142,6 +142,15 @@ if (window.openDatabase) {
 		t.executeSql("CREATE TABLE IF NOT EXISTS itemMst (itemId INTEGER PRIMARY KEY ASC, itemCode TEXT, accCodeId INTEGER REFERENCES accCodeMst(accCodeId),poRequired TEXT,grnRequired TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS costCenterMst (costCenterId INTEGER PRIMARY KEY ASC, costCenterName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS budgetMst (budgetId INTEGER PRIMARY KEY ASC, budgetName TEXT)");
+		
+		/*t.executeSql("CREATE TABLE IF NOT EXISTS operationalBudgetMst (opBudgetId INTEGER PRIMARY KEY ASC, opBudgetName TEXT)");
+		t.executeSql("CREATE TABLE IF NOT EXISTS corporateBudget (corporateId INTEGER PRIMARY KEY ASC,accCodeId INTEGER REFERENCES accCodeMst(accCodeId))");
+		t.executeSql("CREATE TABLE IF NOT EXISTS accHeadMst (acHeadId INTEGER PRIMARY KEY ASC, acHeadName TEXT)");
+		t.executeSql("CREATE TABLE IF NOT EXISTS accCodeMst (accCodeId INTEGER PRIMARY KEY ASC, acHeadId INTEGER REFERENCES accountHeadMst(acHeadId),accCodeName TEXT,capexOpex TEXT )");
+		t.executeSql("CREATE TABLE IF NOT EXISTS itemMst (itemId INTEGER PRIMARY KEY ASC, itemCode TEXT, accCodeId INTEGER REFERENCES accCodeMst(accCodeId),poReqd TEXT,grnReqd TEXT)");
+		t.executeSql("CREATE TABLE IF NOT EXISTS costCenterMst (costCenterId INTEGER PRIMARY KEY ASC, costCenterName TEXT)");
+		t.executeSql("CREATE TABLE IF NOT EXISTS budgetMst (budgetId INTEGER PRIMARY KEY ASC, budgetName TEXT)");
+		t.executeSql("CREATE TABLE IF NOT EXISTS locationMst (locationId INTEGER PRIMARY KEY ASC, locationName TEXT)");*/
 
     });
 
@@ -1583,6 +1592,160 @@ function synchronizeTRForTS() {
 			});	 
 		}
 	}
-
+	function synchronizePRMasterData() {
+		var jsonSentToSync=new Object();
+		
+		jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
+		jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
+		jsonSentToSync["UnitId"] = window.localStorage.getItem("unitId");
+		
+		j('#loading_Cat').show();
+		if (mydb) {
+			
+			j.ajax({
+				  url: window.localStorage.getItem("urlPath")+"SyncOperationalBudgetWebService",
+				  type: 'POST',
+				  dataType: 'json',
+				  crossDomain: true,
+				  data: JSON.stringify(jsonSentToSync),
+				  success: function(data) {
+						//if(data.Status=='Success'){
+							  mydb.transaction(function (t) {
+								t.executeSql("DELETE FROM operationalBudgetMst");
+								var opBudgetArray = data.OperationaBudgetArray;
+								 if(opBudgetArray != null && opBudgetArray.length > 0){
+									for(var i=0; i<opBudgetArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = opBudgetArray[i];
+										var op_budget_id = stateArr.Value;
+										var op_budget_name = stateArr.Label;
+										//var process_id = '6';
+										t.executeSql("INSERT INTO operationalBudgetMst (opBudgetId,opBudgetName) VALUES (?, ?)", [op_budget_id,op_budget_name]);
+									}
+									document.getElementById("syncSuccessMsg").innerHTML = "Operational Budget synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}
+								
+								t.executeSql("DELETE FROM corporateBudget");
+								var corporateBudgetArray = data.CorporateBudgetArray;
+								if(corporateBudgetArray != null && corporateBudgetArray.length > 0){
+									for(var i=0; i<corporateBudgetArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = corporateBudgetArray[i];
+										var corporate_Id = stateArr.CorporateId;
+										var ac_Code_Id = stateArr.AcCodeId;
+										//account_code_id = 1;
+										t.executeSql("INSERT INTO corporateBudget (corporateId ,ac_Code_Id) VALUES (?, ?)", [corporate_Id,ac_Code_Id]);
+									}
+									document.getElementById("syncSuccessMsg").innerHTML = "Corporate Budget synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}
+								
+								t.executeSql("DELETE FROM accHeadMst");
+								var accountHeadArray = data.AccountHeadArray;
+								if(accountHeadArray != null && accountHeadArray.length > 0){
+									for(var i=0; i<accountHeadArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = accountHeadArray[i];
+										var ac_Head_Id = stateArr.Value;
+										var ac_Head_Name = stateArr.Label;
+										t.executeSql("INSERT INTO accHeadMst (acHeadId ,acHeadName) VALUES (?, ?)", [ac_Head_Id,ac_Head_Name]);
+									}
+									document.getElementById("syncSuccessMsg").innerHTML = "Account Head synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}
+								
+								t.executeSql("DELETE FROM accCodeMst");
+								var accountCodeArray = data.AccountCodeArray;
+								if(accountCodeArray != null && accountCodeArray.length > 0){
+									for(var i=0; i<accountCodeArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = accountCodeArray[i];
+										var acc_Code_Id = stateArr.Value;
+										var acc_Code_Name = stateArr.Label;
+										var ac_Head_Id = stateArr.AcHeadId;
+										var capex_Opex = stateArr.CapexOpex;
+										t.executeSql("INSERT INTO accCodeMst (accCodeId ,acHeadId, accCodeName ,capexOpex) VALUES (?, ?, ?, ?)", [acc_Code_Id ,ac_Head_Id ,acc_Code_Name ,capex_Opex]);
+									}
+									document.getElementById("syncSuccessMsg").innerHTML = "Account Code synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}
+								
+								t.executeSql("DELETE FROM itemMst");
+								var itemMasterArray = data.ItemMasterArray;
+								if(itemMasterArray != null && itemMasterArray.length > 0){
+									for(var i=0; i<itemMasterArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = itemMasterArray[i];
+										var item_Id = stateArr.Value;
+										var item_Name = stateArr.Label;
+										var po_Reqd = stateArr.POReqd;
+										var grn_Reqd = stateArr.GRNReqd;
+										var acc_code_id = stateArr.AcCodeId;
+										t.executeSql("INSERT INTO itemMst (itemId ,itemCode ,accCodeId ,poReqd ,grnReqd) VALUES (?, ?, ?, ?, ?)", [item_Id,item_Name,acc_code_id,po_Reqd,acc_code_id]);
+									}
+									document.getElementById("syncSuccessMsg").innerHTML = "Item Master synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}
+								
+								t.executeSql("DELETE FROM costCenterMst");
+								var costCenterArray = data.CostCenterArray;
+								if(costCenterArray != null && costCenterArray.length > 0){
+									for(var i=0; i<costCenterArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = costCenterArray[i];
+										var cost_center_Id = stateArr.Value;
+										var cost_center_Name = stateArr.Label;
+										account_code_id = 1;
+										t.executeSql("INSERT INTO costCenterMst (costCenterId ,costCenterName) VALUES (?, ?)", [cost_center_Id,cost_center_Name]);
+									}
+									document.getElementById("syncSuccessMsg").innerHTML = "Corporate Budget synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}
+								
+								t.executeSql("DELETE FROM budgetMst");
+								var budgetNameArray = data.BudgetNameArray;
+								if(budgetNameArray != null && budgetNameArray.length > 0){
+									for(var i=0; i<budgetNameArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = budgetNameArray[i];
+										var budget_Id = stateArr.Value;
+										var budget_Name = stateArr.Label;
+										t.executeSql("INSERT INTO budgetMst (budgetId ,budgetName) VALUES (?, ?)", [budget_Id,budget_Name]);
+									}
+									document.getElementById("syncSuccessMsg").innerHTML = "Budget Master synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}
+								
+								/*t.executeSql("DELETE FROM locationMst");
+								var corporateBudgetArray = data.CorporateBudgetArray;
+								if(corporateBudgetArray != null && corporateBudgetArray.length > 0){
+									for(var i=0; i<corporateBudgetArray.length; i++ ){
+										var stateArr = new Array();
+										stateArr = corporateBudgetArray[i];
+										var corporate_Id = stateArr.Value;
+										var corporate_Name = stateArr.Label;
+										//account_code_id = '1';
+										t.executeSql("INSERT INTO corporateBudget (corporateId ,corporateName ,accountCodeId) VALUES (?, ?)", [corporate_Id,corporate_Name,account_code_id]);
+									}
+								}else{
+									document.getElementById("syncSuccessMsg").innerHTML = "Corporate Budget synchronized Successfully.";
+									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+								}*/
+							});
+							
+						/*}else{
+							document.getElementById("syncFailureMsg").innerHTML = "Corporate Budget synchronized Successfully.";
+							j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+						}*/
+					},		
+					error:function(data) {
+						alert("Error: Oops something is wrong, Please Contact System Administer");
+					}	
+						
+				});
+			
+		}
+	}
 	
 	
