@@ -141,7 +141,7 @@ function commanLogin(){
 
 	  function displayPurchaseReq(){
 		 
-		 var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
+		 var headerBackBtn=defaultPagePath+'headerPageForPROperation.html';
     	 var pageRef=defaultPagePath+'purchaseRequistionView.html';
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
