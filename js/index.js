@@ -2017,3 +2017,65 @@ function synchronizePRMaster()
  		alert("Quantity or Amount Can not be zero ");
  	}
  }
+
+ //Amit Start
+function createBudgetDropDown(jsonBudgetNameArr){
+	var jsonBudgetArr = [];
+	if(jsonBudgetNameArr != null && jsonBudgetNameArr.length > 0){
+		for(var i=0; i<jsonBudgetNameArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonBudgetNameArr[i];
+			
+			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+		}
+	}
+		
+	j("#opBudget").select2({
+		data:{ results: jsonBudgetArr, text: 'name' },
+		placeholder: "Budget Name",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonBudgetArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
+
+function getBudgetName(){
+
+ 	var BudgetID = j("#opBudget").select2('data').id;
+       getBudgetNameFromDB(BudgetID);
+ }
+
+ function createExpNameDropDown(jsonExpNameArr){
+	var jsonExpArr = [];
+	if(jsonExpNameArr != null && jsonExpNameArr.length > 0){
+		for(var i=0; i<jsonExpNameArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonExpNameArr[i];
+			jsonExpArr.push({id: stateArr.accHeadId,name: stateArr.acHeadName});
+		}
+	}
+		
+	j("#expenseName").select2({
+		data:{ results: jsonExpArr, text: 'name' },
+		placeholder: "Expense Name",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonExpArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
+
+
+ //Amit end  index

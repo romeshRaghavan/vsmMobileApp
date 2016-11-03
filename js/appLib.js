@@ -1741,3 +1741,234 @@ function synchronizeTRForTS() {
 	}
 	
 
+
+//Amit Start
+function savePrDetails(status){
+	exceptionMessage='';
+
+	if(status == "1"){
+   var pageRef=defaultPagePath+'category.html';
+    var headerBackBtn=defaultPagePath+'backbtnPage.html';
+	j(document).ready(function() {
+		
+		j('#mainHeader').load(headerBackBtn);
+		j('#mainContainer').load(pageRef);
+	});
+    appPageHistory.push(pageRef);
+	}
+	else if(status == "0"){
+	if (mydb) {
+		//get the values of the text inputs
+        var pr_title = document.getElementById('prTitle').value;
+		var po_raised_at = document.getElementById('poRaised').value;
+		var grn_raised_at = document.getElementById('grnRaised').value;
+		var acCode_Type = document.getElementById('acCodeType').value;
+		var acc_head_id;
+		var acc_head_val;
+		var opBudget_id;
+		var opBudget_val;
+
+		if(j("#accountHead").select2('data') != null){
+			acc_head_id = j("#accountHead").select2('data').id;
+			acc_head_val = j("#accountHead").select2('data').name;
+		}else{
+			acc_head_id = '-1';
+		}
+		
+		if(j("#opBudget").select2('data') != null){
+			opBudget_id = j("#opBudget").select2('data').id;
+			opBudget_val = j("#opBudget").select2('data').name;
+		}else{
+			opBudget_id = '-1';
+		}	
+		
+		
+		
+		if(validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_head_id,opBudget_id)){
+		 
+		j('#loading_Cat').show();			  
+		  
+		 	viewBusinessExp();
+			
+		 /* mydb.transaction(function (t) {
+				t.executeSql("INSERT INTO businessExpDetails (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file]);*/
+			/*					
+				if(status == "0"){
+				
+     		document.getElementById('prTitle').value ="";
+			document.getElementById('poRaised').value ="";;
+			document.getElementById('grnRaised').value ="";;
+			document.getElementById('acCodeType').value ="";;
+/*					smallImageBE.style.display = 'none';
+					smallImageBE.src = "";*/
+					/*j('#errorMsgArea').children('span').text("");
+					j('#accountHead').select2('data', '');
+					j('#opBudget').select2('data', '');
+					//j('#currency').select2('data', '');
+					j('#loading_Cat').hide();
+					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
+					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+					//resetImageData();*/
+					//createBusinessExp();
+				/*}
+			};*/
+		
+		}else{
+			return false;
+		}
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }
+}
+}
+
+function onloadPr() {
+ 	
+ 		var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
+ 	
+ 		if(BudgetingStatus =='N'){
+ 			
+ 			document.getElementById("Budgeting").style.display = "none";
+ 		}
+ 		else{
+ 			document.getElementById("Budgeting").style.display = "";
+ 		}
+ 	
+	if (mydb) {
+		mydb.transaction(function (t) {
+				t.executeSql("SELECT * FROM accHeadMst", [], getAccHeadList);
+				/*t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
+				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
+				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);*/
+				t.executeSql("SELECT * FROM budgetMst", [], getBudgetList);
+			});
+	} else {
+		alert("db not found, your browser does not support web sql!");
+	}
+ }
+
+
+ function getBudgetList(transaction, results) {
+
+ var jsonBudgetNameArr = [];
+    if(results!=null){
+    	
+	 for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+        var budgetDetailsJSON = new Object();
+      budgetDetailsJSON ["Label"]=row.budgetId;
+	  budgetDetailsJSON ["Value"]=row.budgetName;
+	
+		/*jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
+		jsonBudgetNameArr.push(jsonFindAccHead);*/
+	jsonBudgetNameArr.push(budgetDetailsJSON);
+	 }
+	
+	createBudgetDropDown(jsonBudgetNameArr)
+ }
+}
+
+function getExpNameList(transaction, results) {
+    var i;
+	var jsonExpNameArr = [];
+	
+	for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+		var jsonFindExpNameHead = new Object();
+
+		jsonFindExpNameHead["accHeadId"] = row.id;
+		jsonFindExpNameHead["acHeadName"] = row.expName;
+		
+		jsonExpNameArr.push(jsonFindExpNameHead);
+	}
+	createExpNameDropDown(jsonExpNameArr);
+}
+
+function getExpenseNamesfromDB(accountHeadId){
+	j('#errorMsgArea').children('span').text("");
+ if (mydb) {
+        //Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
+        mydb.transaction(function (t) {
+			t.executeSql("SELECT * FROM accHeadMst where accHeadId="+accountHeadId, [], getExpNameList);
+		});
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
+
+function getBudgetNameFromDB(BudgetID){
+	j('#errorMsgArea').children('span').text("");
+	if(mydb) {
+ 		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
+        mydb.transaction(function (t) {
+			t.executeSql("SELECT * FROM budgetMst where id="+BudgetID, [], getBudgetList);
+			//t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
+		});
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
+
+function createBudgetDropDown(jsonBudgetNameArr){
+	var jsonBudgetArr = [];
+	if(jsonBudgetNameArr != null && jsonBudgetNameArr.length > 0){
+		for(var i=0; i<jsonBudgetNameArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonBudgetNameArr[i];
+			
+			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+		}
+	}
+		
+	j("#opBudget").select2({
+		data:{ results: jsonBudgetArr, text: 'name' },
+		placeholder: "Budget Name",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonBudgetArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
+
+function getBudgetName(){
+
+ 	var BudgetID = j("#opBudget").select2('data').id;
+       getBudgetNameFromDB(BudgetID);
+ }
+
+ function createExpNameDropDown(jsonExpNameArr){
+	var jsonExpArr = [];
+	if(jsonExpNameArr != null && jsonExpNameArr.length > 0){
+		for(var i=0; i<jsonExpNameArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonExpNameArr[i];
+			jsonExpArr.push({id: stateArr.accHeadId,name: stateArr.acHeadName});
+		}
+	}
+		
+	j("#expenseName").select2({
+		data:{ results: jsonExpArr, text: 'name' },
+		placeholder: "Expense Name",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonExpArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
+
+
+
+//Amit End applib
