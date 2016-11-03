@@ -1481,7 +1481,6 @@ function synchronizeTRForTS() {
 	
 	// VSM Mobile
 	function synchronizePRMasterDataNonBudget() {
-		alert("inside of synchronizePRMasterDataNonBudget")
 		var jsonSentToSync=new Object();
 		jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("budgetingStatus");
 		jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
@@ -1491,105 +1490,71 @@ function synchronizeTRForTS() {
 		jsonSentToSync["processId"] = 6;
 		j('#loading_Cat').show();
 		if (mydb) {
+			
 			j.ajax({
-			  url: window.localStorage.getItem("urlPath")+"SyncLocationWebService",
-			  type: 'POST',
-			  dataType: 'json',
-			  crossDomain: true,
-			  data: JSON.stringify(jsonSentToSync),
-			  success: function(data) {
-				  if(data.Status=='Success'){
-				  	mydb.transaction(function (t) {
-					t.executeSql("DELETE FROM locationMst");
-					var locationMstArray = data.LocationArray;
-						if(locationMstArray != null && locationMstArray.length > 0){
-							for(var i=0; i<locationMstArray.length; i++ ){
-								var stateArr = new Array();
-								stateArr = locationMstArray[i];
-								var location_id = stateArr.Value;
-								var location_name = stateArr.Label;
-								t.executeSql("INSERT INTO locationMst (locationId,locationName) VALUES (?, ?)", [location_id,location_name]);
+				  url: window.localStorage.getItem("urlPath")+"SyncPRDataNonBudgetWebService",
+				  type: 'POST',
+				  dataType: 'json',
+				  crossDomain: true,
+				  data: JSON.stringify(jsonSentToSync),
+				  success: function(data) {
+					  if(data.Status=='Success'){
+					  	mydb.transaction(function (t) {
+						t.executeSql("DELETE FROM accHeadMst");
+						var accountHeadMstArray = data.AccountHeadArray;
+						var accCodeArray = data.AccCodeArray;
+						var itemArray = data.ItemArray;
+							if(accountHeadMstArray != null && accountHeadMstArray.length > 0){
+								for(var i=0; i<accountHeadMstArray.length; i++ ){
+									var stateArr = new Array();
+									stateArr = accountHeadMstArray[i];
+									var account_Head_id = stateArr.Value;
+									var account_Head_name = stateArr.Label;
+									t.executeSql("INSERT INTO accHeadMst (acHeadId,acHeadName) VALUES (?, ?)", [account_Head_id,account_Head_name]);
+								}
 							}
-						}
-					});	
-					j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Location Master synchronized  successfully.";
-					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-					
-				}
-				else{
-					j('#loading_Cat').hide();
-					document.getElementById("syncFailureMsg").innerHTML = "Location Master not synchronized  successfully.";
-					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-					
-				}
-				}
+							t.executeSql("DELETE FROM accCodeMst");
+							if(accCodeArray != null && accCodeArray.length > 0){
+								for(var i=0; i<accCodeArray.length; i++ ){
+									var stateArr1 = new Array();
+									stateArr1 = accCodeArray[i];
+									var account_Code_id = stateArr1.AccCodeId;
+									var account_Code_name = stateArr1.AccCode;
+									var capex_Opex = stateArr1.CapexOpex;
+									var acc_Head_Id = stateArr1.AccountHeadId;
+									t.executeSql("INSERT INTO accCodeMst (accCodeId,acHeadId,accCodeName,capexOpex) VALUES (?, ?,?,?)", [account_Code_id,acc_Head_Id,account_Code_name,capex_Opex]);
+								}
+							}
+							t.executeSql("DELETE FROM itemMst");
+							if(itemArray != null && itemArray.length > 0){
+								for(var i=0; i<itemArray.length; i++ ){
+									var stateArr1 = new Array();
+									stateArr1 = itemArray[i];
+									var item_code_id = stateArr1.ItemId;
+									var item_code = stateArr1.ItemCode;
+									var item_name = stateArr1.ItemName;
+									var grnReq = stateArr1.grnReq;
+									var poReq = stateArr1.PoRequired;
+									var acc_code_id = stateArr1.AcCodeId;
+									t.executeSql("INSERT INTO itemMst (itemId,itemCode,accCodeId,poRequired,grnRequired) VALUES (?,?,?,?,?)",[item_code_id,item_code,acc_code_id,poReq,grnReq]);
+								}
+							}
 
-			});	
-
-		j.ajax({
-			  url: window.localStorage.getItem("urlPath")+"SyncPRDataNonBudgetWebService",
-			  type: 'POST',
-			  dataType: 'json',
-			  crossDomain: true,
-			  data: JSON.stringify(jsonSentToSync),
-			  success: function(data) {
-				  if(data.Status=='Success'){
-				  	mydb.transaction(function (t) {
-					t.executeSql("DELETE FROM accHeadMst");
-					var accountHeadMstArray = data.AccountHeadArray;
-					var accCodeArray = data.AccCodeArray;
-					var itemArray = data.ItemArray;
-						if(accountHeadMstArray != null && accountHeadMstArray.length > 0){
-							for(var i=0; i<accountHeadMstArray.length; i++ ){
-								var stateArr = new Array();
-								stateArr = accountHeadMstArray[i];
-								var account_Head_id = stateArr.Value;
-								var account_Head_name = stateArr.Label;
-								t.executeSql("INSERT INTO accHeadMst (acHeadId,acHeadName) VALUES (?, ?)", [account_Head_id,account_Head_name]);
-							}
-						}
-						t.executeSql("DELETE FROM accCodeMst");
-						if(accCodeArray != null && accCodeArray.length > 0){
-							for(var i=0; i<accCodeArray.length; i++ ){
-								var stateArr1 = new Array();
-								stateArr1 = accCodeArray[i];
-								var account_Code_id = stateArr1.AccCodeId;
-								var account_Code_name = stateArr1.AccCode;
-								var capex_Opex = stateArr1.CapexOpex;
-								var acc_Head_Id = stateArr1.AccountHeadId;
-								t.executeSql("INSERT INTO accCodeMst (accCodeId,acHeadId,accCodeName,capexOpex) VALUES (?, ?,?,?)", [account_Code_id,acc_Head_Id,account_Code_name,capex_Opex]);
-							}
-						}
-						t.executeSql("DELETE FROM itemMst");
-						if(itemArray != null && itemArray.length > 0){
-							for(var i=0; i<itemArray.length; i++ ){
-								var stateArr1 = new Array();
-								stateArr1 = itemArray[i];
-								var item_code_id = stateArr1.ItemId;
-								var item_code = stateArr1.ItemCode;
-								var item_name = stateArr1.ItemName;
-								var grnReq = stateArr1.grnReq;
-								var poReq = stateArr1.PoRequired;
-								var acc_code_id = stateArr1.AcCodeId;
-								t.executeSql("INSERT INTO itemMst (itemId,itemCode,accCodeId,poRequired,grnRequired) VALUES (?,?,?,?,?)",[item_code_id,item_code,acc_code_id,poReq,grnReq]);
-							}
-						}
-
-					});	
-				  j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Purchase Requisition Master synchronized  successfully.";
-					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-					
-				}
-				else{
-					j('#loading_Cat').hide();
-					document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master not synchronized  successfully.";
-					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-					
-				}
-				}
-			});	 
+						});	
+					  j('#loading_Cat').hide();
+						document.getElementById("syncSuccessMsg").innerHTML = "Purchase Requisition Master synchronized  successfully.";
+						j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+						
+						setTimeout(synchronizeLocationDB, 1000);
+					}
+					else{
+						j('#loading_Cat').hide();
+						document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master not synchronized  successfully.";
+						j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+						
+					}
+					}
+				});	 
 		}
 	}
 	function synchronizePRMasterData() {
@@ -1601,7 +1566,7 @@ function synchronizeTRForTS() {
 		
 		j('#loading_Cat').show();
 		if (mydb) {
-			
+
 			j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SyncOperationalBudgetWebService",
 				  type: 'POST',
@@ -1715,12 +1680,15 @@ function synchronizeTRForTS() {
 										t.executeSql("INSERT INTO corporateBudget (corporateId ,corporateName ,accountCodeId) VALUES (?, ?)", [corporate_Id,corporate_Name,account_code_id]);
 									}
 								}*/
-
+								j('#loading_Cat').hide();
 								document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master synchronized Successfully.";
 								j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+
+								setTimeout(synchronizeLocationDB, 1000);
 							});
 							
 						}else{
+							j('#loading_Cat').hide();
 							document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master not synchronized Successfully.";
 							j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 						}
@@ -1734,5 +1702,42 @@ function synchronizeTRForTS() {
 		}
 	}
 	
+	function synchronizeLocationDB(jsonSentToSync){
+		j.ajax({
+			  url: window.localStorage.getItem("urlPath")+"SyncLocationWebService",
+			  type: 'POST',
+			  dataType: 'json',
+			  crossDomain: true,
+			  data: JSON.stringify(jsonSentToSync),
+			  success: function(data) {
+				  if(data.Status=='Success'){
+				  	mydb.transaction(function (t) {
+					t.executeSql("DELETE FROM locationMst");
+					var locationMstArray = data.LocationArray;
+						if(locationMstArray != null && locationMstArray.length > 0){
+							for(var i=0; i<locationMstArray.length; i++ ){
+								var stateArr = new Array();
+								stateArr = locationMstArray[i];
+								var location_id = stateArr.Value;
+								var location_name = stateArr.Label;
+								t.executeSql("INSERT INTO locationMst (locationId,locationName) VALUES (?, ?)", [location_id,location_name]);
+							}
+						}
+					});	
+					j('#loading_Cat').hide();
+					document.getElementById("syncSuccessMsg").innerHTML = "Location Master synchronized  successfully.";
+					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+					
+				}
+				else{
+					j('#loading_Cat').hide();
+					document.getElementById("syncFailureMsg").innerHTML = "Location Master not synchronized  successfully.";
+					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+					
+				}
+				}
+
+			});	
+	}
 	
 
