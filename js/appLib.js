@@ -158,75 +158,6 @@ if (window.openDatabase) {
     alert("WebSQL is not supported by your browser!");
 }
 
-//function to remove a employeeDetails from the database, passed the row id as it's only parameter
-function savePrDetails(status){
-	exceptionMessage='';
-	
-	if (mydb) {
-		//get the values of the text inputs
-        var pr_title = document.getElementById('prTitle').value;
-		var po_raised_at = document.getElementById('poRaised').value;
-		var grn_raised_at = document.getElementById('grnRaised').value;
-		var acCode_Type = document.getElementById('acCodeType').value;
-		var acc_head_id;
-		var acc_head_val;
-		var opBudget_id;
-		var opBudget_val;
-
-		if(j("#accountHead").select2('data') != null){
-			acc_head_id = j("#accountHead").select2('data').id;
-			acc_head_val = j("#accountHead").select2('data').name;
-		}else{
-			acc_head_id = '-1';
-		}
-		
-		if(j("#opBudget").select2('data') != null){
-			opBudget_id = j("#opBudget").select2('data').id;
-			opBudget_val = j("#opBudget").select2('data').name;
-		}else{
-			opBudget_id = '-1';
-		}	
-		
-		
-		
-		if(validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_head_id,opBudget_id)){
-		 
-		j('#loading_Cat').show();			  
-		  
-		 	viewBusinessExp();
-			
-		 /* mydb.transaction(function (t) {
-				t.executeSql("INSERT INTO businessExpDetails (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file]);*/
-			/*					
-				if(status == "0"){
-				
-     		document.getElementById('prTitle').value ="";
-			document.getElementById('poRaised').value ="";;
-			document.getElementById('grnRaised').value ="";;
-			document.getElementById('acCodeType').value ="";;
-/*					smallImageBE.style.display = 'none';
-					smallImageBE.src = "";*/
-					/*j('#errorMsgArea').children('span').text("");
-					j('#accountHead').select2('data', '');
-					j('#opBudget').select2('data', '');
-					//j('#currency').select2('data', '');
-					j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
-					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-					//resetImageData();*/
-					//createBusinessExp();
-				/*}
-			};*/
-		
-		}else{
-			return false;
-		}
-    } else {
-        alert("db not found, your browser does not support web sql!");
-    }
-}
-
 function saveTravelSettleDetails(status){
 	exceptionStatus='N';
 	exceptionMessage='';
@@ -879,30 +810,6 @@ function synchronizeBEMasterData() {
     }
  }
  
-  function onloadPr() {
- 	
- 		var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
- 	
- 		if(BudgetingStatus =='N'){
- 			
- 			document.getElementById("Budgeting").style.display = "none";
- 		}
- 		else{
- 			document.getElementById("Budgeting").style.display = "";
- 		}
- 	
-	if (mydb) {
-		mydb.transaction(function (t) {
-				t.executeSql("SELECT * FROM accHeadMst", [], getAccHeadList);
-				t.executeSql("SELECT * FROM accHeadMst", [], getOperationalBudgetList);
-				/*t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
-				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
-				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);*/
-			});
-	} else {
-		alert("db not found, your browser does not support web sql!");
-	}
- }
  
  function getAccHeadList(transaction, results) {
 	var i;
@@ -1745,10 +1652,9 @@ function synchronizeTRForTS() {
 //Amit Start
 function savePRDetails(status){
 	exceptionMessage='';
-
 	if(status == "1"){
    var pageRef=defaultPagePath+'category.html';
-    var headerBackBtn=defaultPagePath+'headerPageForPROperation.html';
+    var headerBackBtn=defaultPagePath+'backbtnPage.html';
 	j(document).ready(function() {
 		
 		j('#mainHeader').load(headerBackBtn);
