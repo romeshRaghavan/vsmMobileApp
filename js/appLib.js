@@ -1578,13 +1578,13 @@ function synchronizeTRForTS() {
 
 					});	
 				  j('#loading_Cat').hide();
-					document.getElementById("syncSuccessMsg").innerHTML = "Purchse Reqisition Master synchronized  successfully.";
+					document.getElementById("syncSuccessMsg").innerHTML = "Purchase Requisition Master synchronized  successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					
 				}
 				else{
 					j('#loading_Cat').hide();
-					document.getElementById("syncFailureMsg").innerHTML = "Purchse Reqisition Master not synchronized  successfully.";
+					document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master not synchronized  successfully.";
 					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					
 				}
@@ -1609,7 +1609,7 @@ function synchronizeTRForTS() {
 				  crossDomain: true,
 				  data: JSON.stringify(jsonSentToSync),
 				  success: function(data) {
-						//if(data.Status=='Success'){
+						if(data.Status=='Success'){
 							  mydb.transaction(function (t) {
 								t.executeSql("DELETE FROM operationalBudgetMst");
 								var opBudgetArray = data.OperationaBudgetArray;
@@ -1622,8 +1622,6 @@ function synchronizeTRForTS() {
 										//var process_id = '6';
 										t.executeSql("INSERT INTO operationalBudgetMst (opBudgetId,opBudgetName) VALUES (?, ?)", [op_budget_id,op_budget_name]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Operational Budget synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
 								t.executeSql("DELETE FROM corporateBudget");
@@ -1637,8 +1635,6 @@ function synchronizeTRForTS() {
 										//account_code_id = 1;
 										t.executeSql("INSERT INTO corporateBudget (corporateId ,accCodeId) VALUES (?, ?)", [corporate_Id,ac_Code_Id]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Corporate Budget synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
 								t.executeSql("DELETE FROM accHeadMst");
@@ -1651,8 +1647,6 @@ function synchronizeTRForTS() {
 										var ac_Head_Name = stateArr.Label;
 										t.executeSql("INSERT INTO accHeadMst (acHeadId ,acHeadName) VALUES (?, ?)", [ac_Head_Id,ac_Head_Name]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Account Head synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
 								t.executeSql("DELETE FROM accCodeMst");
@@ -1667,8 +1661,6 @@ function synchronizeTRForTS() {
 										var capex_Opex = stateArr.CapexOpex;
 										t.executeSql("INSERT INTO accCodeMst (accCodeId ,acHeadId, accCodeName ,capexOpex) VALUES (?, ?, ?, ?)", [acc_Code_Id ,ac_Head_Id ,acc_Code_Name ,capex_Opex]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Account Code synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
 								t.executeSql("DELETE FROM itemMst");
@@ -1684,8 +1676,6 @@ function synchronizeTRForTS() {
 										var acc_code_id = stateArr.AcCodeId;
 										t.executeSql("INSERT INTO itemMst (itemId ,itemCode ,accCodeId ,poRequired ,grnRequired) VALUES (?, ?, ?, ?, ?)", [item_Id,item_Name,acc_code_id,po_Reqd,acc_code_id]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Item Master synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
 								t.executeSql("DELETE FROM costCenterMst");
@@ -1699,8 +1689,6 @@ function synchronizeTRForTS() {
 										account_code_id = 1;
 										t.executeSql("INSERT INTO costCenterMst (costCenterId ,costCenterName) VALUES (?, ?)", [cost_center_Id,cost_center_Name]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Cost center synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
 								t.executeSql("DELETE FROM budgetMst");
@@ -1713,8 +1701,6 @@ function synchronizeTRForTS() {
 										var budget_Name = stateArr.Label;
 										t.executeSql("INSERT INTO budgetMst (budgetId ,budgetName) VALUES (?, ?)", [budget_Id,budget_Name]);
 									}
-									document.getElementById("syncSuccessMsg").innerHTML = "Budget Master synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}
 								
 								/*t.executeSql("DELETE FROM locationMst");
@@ -1728,16 +1714,16 @@ function synchronizeTRForTS() {
 										//account_code_id = '1';
 										t.executeSql("INSERT INTO corporateBudget (corporateId ,corporateName ,accountCodeId) VALUES (?, ?)", [corporate_Id,corporate_Name,account_code_id]);
 									}
-								}else{
-									document.getElementById("syncSuccessMsg").innerHTML = "Corporate Budget synchronized Successfully.";
-									j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 								}*/
+
+								document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master synchronized Successfully.";
+								j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 							});
 							
-						/*}else{
-							document.getElementById("syncFailureMsg").innerHTML = "Corporate Budget synchronized Successfully.";
+						}else{
+							document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master not synchronized Successfully.";
 							j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-						}*/
+						}
 					},		
 					error:function(data) {
 						alert("Error: Oops something is wrong, Please Contact System Administer");
@@ -1749,3 +1735,4 @@ function synchronizeTRForTS() {
 	}
 	
 	
+
