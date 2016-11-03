@@ -1743,12 +1743,12 @@ function synchronizeTRForTS() {
 
 
 //Amit Start
-function savePrDetails(status){
+function savePRDetails(status){
 	exceptionMessage='';
 
 	if(status == "1"){
    var pageRef=defaultPagePath+'category.html';
-    var headerBackBtn=defaultPagePath+'backbtnPage.html';
+    var headerBackBtn=defaultPagePath+'headerPageForPROperation.html';
 	j(document).ready(function() {
 		
 		j('#mainHeader').load(headerBackBtn);
@@ -1823,7 +1823,7 @@ function savePrDetails(status){
 }
 }
 
-function onloadPr() {
+function onloadPR() {
  	
  		var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
  	
