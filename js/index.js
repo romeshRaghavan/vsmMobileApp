@@ -1918,13 +1918,13 @@ function hideTRIcons(){
 	}
 }
 
-function hideTRMenus(){
+/*function hideTRMenus(){
 	if(window.localStorage.getItem("prRole") == "true"){
 		document.getElementById('prRoleID').style.display="block";
 	}else{
 		document.getElementById('prRoleID').style.display="none";
 	}
-}
+}*/
 function validateValidMobileUser(){
 	var pgRef;
 	var headerBackBtn;
@@ -2019,24 +2019,24 @@ function synchronizePRMaster()
  }
 
  //Amit Start
-function createBudgetDropDown(jsonBudgetNameArr){
-	var jsonBudgetArr = [];
-	if(jsonBudgetNameArr != null && jsonBudgetNameArr.length > 0){
-		for(var i=0; i<jsonBudgetNameArr.length; i++ ){
+function createOpBudgetDropDown(jsonOpBudgetNameArr){
+	var jsonOpBudgetArr = [];
+	if(jsonOpBudgetNameArr != null && jsonOpBudgetNameArr.length > 0){
+		for(var i=0; i<jsonOpBudgetNameArr.length; i++ ){
 			var stateArr = new Array();
-			stateArr = jsonBudgetNameArr[i];
+			stateArr = jsonOpBudgetNameArr[i];
 			
 			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
-			jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			jsonOpBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
 		}
 	}
 		
 	j("#opBudget").select2({
-		data:{ results: jsonBudgetArr, text: 'name' },
-		placeholder: "Budget Name",
+		data:{ results: jsonOpBudgetArr, text: 'name' },
+		placeholder: "Operatinal Budget",
 		minimumResultsForSearch: -1,
 		initSelection: function (element, callback) {
-			callback(jsonBudgetArr[0]);
+			callback(jsonOpBudgetArr[0]);
 		},
 		formatResult: function(result) {
 			if ( ! isJsonString(result.id))
@@ -2046,10 +2046,10 @@ function createBudgetDropDown(jsonBudgetNameArr){
 	}).select2("val","");
 }
 
-function getBudgetName(){
+function getOpBudgetName(){
 
- 	var BudgetID = j("#opBudget").select2('data').id;
-       getBudgetNameFromDB(BudgetID);
+ 	var OpBudgetID = j("#opBudget").select2('data').id;
+       getOpBudgetNameFromDB(OpBudgetID);
  }
 
  function createExpNameDropDown(jsonExpNameArr){
@@ -2077,5 +2077,57 @@ function getBudgetName(){
 	}).select2("val","");
 }
 
+function createCcDropDown(jsonCostCenterArr){
+	var jsonCcArr = [];
+	if(jsonCostCenterArr != null && jsonCostCenterArr.length > 0){
+		for(var i=0; i<jsonCostCenterArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonCostCenterArr[i];
+			
+			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			jsonCcArr.push({id: stateArr.Label,name: stateArr.Value});
+		}
+	}
+		
+	j("#costCenter").select2({
+		data:{ results: jsonCcArr, text: 'name' },
+		placeholder: "Cost Center",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonCcArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
 
+function createLocationDropDown(jsonLocationArr){
+	var jsonLocArr = [];
+	if(jsonLocationArr != null && jsonLocationArr.length > 0){
+		for(var i=0; i<jsonLocationArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonLocationArr[i];
+			
+			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			jsonLocArr.push({id: stateArr.Label,name: stateArr.Value});
+		}
+	}
+		
+	j("#shipLocation").select2({
+		data:{ results: jsonLocArr, text: 'name' },
+		placeholder: "Location",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonLocArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
  //Amit end  index

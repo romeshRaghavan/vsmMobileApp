@@ -1739,15 +1739,43 @@ function onloadPR() {
  		}
  		else{
  			document.getElementById("Budgeting").style.display = "";
+ 			
  		}
  	
 	if (mydb) {
 		mydb.transaction(function (t) {
 				t.executeSql("SELECT * FROM accHeadMst", [], getAccHeadList);
-				/*t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
-				t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
-				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);*/
+				//t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
+				//t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
+				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);
 				t.executeSql("SELECT * FROM budgetMst", [], getBudgetList);
+			});
+	} else {
+		alert("db not found, your browser does not support web sql!");
+	}
+ }
+
+ function onloadPRScreen2() {
+ 	
+ 		var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
+ 	
+ 		if(BudgetingStatus =='N'){
+ 			
+ 			document.getElementById("Budgeting").style.display = "none";
+ 		
+ 		}
+ 		else{
+ 			document.getElementById("Budgeting").style.display = "";	
+ 		}
+ 	
+	if (mydb) {
+		mydb.transaction(function (t) {
+				t.executeSql("SELECT * FROM accHeadMst", [], getAccHeadList);
+				t.executeSql("SELECT * FROM costCenterMst", [], getCcList);
+				t.executeSql("SELECT * FROM locationMst", [], getLocationList);
+				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);
+				t.executeSql("SELECT * FROM budgetMst", [], getBudgetList);
+				t.executeSql("SELECT * FROM itemMst", [], getItemList);
 			});
 	} else {
 		alert("db not found, your browser does not support web sql!");
@@ -1776,6 +1804,27 @@ function onloadPR() {
  }
 }
 
+ function getOperationalBudgetList(transaction, results) {
+
+ var jsonOpBudgetNameArr = [];
+    if(results!=null){
+    	
+	 for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+        var opBudgetDetailsJSON = new Object();
+      opBudgetDetailsJSON ["Label"]=row.opBudgetId;
+	  opBudgetDetailsJSON ["Value"]=row.opBudgetName;
+	
+		/*jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
+		jsonBudgetNameArr.push(jsonFindAccHead);*/
+	jsonOpBudgetNameArr.push(opBudgetDetailsJSON);
+	 }
+	
+	createOpBudgetDropDown(jsonOpBudgetNameArr)
+ }
+}
+
 function getExpNameList(transaction, results) {
     var i;
 	var jsonExpNameArr = [];
@@ -1797,7 +1846,20 @@ function getExpenseNamesfromDB(accountHeadId){
  if (mydb) {
         //Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
         mydb.transaction(function (t) {
-			t.executeSql("SELECT * FROM accHeadMst where accHeadId="+accountHeadId, [], getExpNameList);
+			t.executeSql("SELECT * FROM accHeadMst where accHeadId="+accountHeadId, [], getAccHeadList);
+		});
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
+
+function getOpBudgetNameFromDB(BudgetID){
+	j('#errorMsgArea').children('span').text("");
+	if(mydb) {
+ 		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
+        mydb.transaction(function (t) {
+			t.executeSql("SELECT * FROM operationalBudgetMst where id="+BudgetID, [], getOperationalBudgetList);
+			//t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
 		});
     } else {
         alert("db not found, your browser does not support web sql!");
@@ -1829,7 +1891,7 @@ function createBudgetDropDown(jsonBudgetNameArr){
 		}
 	}
 		
-	j("#opBudget").select2({
+	j("#Budget").select2({
 		data:{ results: jsonBudgetArr, text: 'name' },
 		placeholder: "Budget Name",
 		minimumResultsForSearch: -1,
@@ -1846,7 +1908,7 @@ function createBudgetDropDown(jsonBudgetNameArr){
 
 function getBudgetName(){
 
- 	var BudgetID = j("#opBudget").select2('data').id;
+ 	var BudgetID = j("#Budget").select2('data').id;
        getBudgetNameFromDB(BudgetID);
  }
 
@@ -1875,6 +1937,151 @@ function getBudgetName(){
 	}).select2("val","");
 }
 
+ function getCcList(transaction, results) {
 
+ var jsonCostCenterArr = [];
+    if(results!=null){
+    	
+	 for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+        var ccDetailsJSON = new Object();
+       ccDetailsJSON["Label"]=row.costCenterId;
+	  ccDetailsJSON ["Value"]=row.costCenterName;
+	
+		/*jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
+		jsonBudgetNameArr.push(jsonFindAccHead);*/
+	jsonCostCenterArr.push(ccDetailsJSON);
+	 }
+	
+	createCcDropDown(jsonCostCenterArr)
+ }
+}
 
+function getCostCenter(){
+
+ 	var CcID = j("#costCenter").select2('data').id;
+       getCostCenterFromDB(CcID);
+ }
+
+function getCostCenterFromDB(CcID){
+	j('#errorMsgArea').children('span').text("");
+	if(mydb) {
+ 		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
+        mydb.transaction(function (t) {
+			t.executeSql("SELECT * FROM costCenterMst where id="+CcID, [], getCcList);
+			//t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
+		});
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
+
+ function getLocationList(transaction, results) {
+
+ var jsonLocationArr = [];
+    if(results!=null){
+    	
+	 for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+        var LocationDetailsJSON = new Object();
+
+       LocationDetailsJSON["Label"]=row.locationId;
+	   LocationDetailsJSON["Value"]=row.locationName;
+	
+		/*jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
+		jsonBudgetNameArr.push(jsonFindAccHead);*/
+	jsonLocationArr.push(LocationDetailsJSON);
+	 }
+	
+	createLocationDropDown(jsonLocationArr)
+ }
+}
+
+function getShipToLocation(){
+
+ 	var LocID = j("#shipLocation").select2('data').id;
+       getShipToLocationFromDB(LocID);
+ }
+
+ function getShipToLocationFromDB(LocID){
+	j('#errorMsgArea').children('span').text("");
+	if(mydb) {
+ 		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
+        mydb.transaction(function (t) {
+			t.executeSql("SELECT * FROM locationMst where id="+LocID, [], getLocationList);
+			//t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
+		});
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
+
+ function getItemList(transaction, results) {
+
+ var jsonitemArr = [];
+    if(results!=null){
+    	
+	 for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+        var itemDetailsJSON = new Object();
+      itemDetailsJSON ["Label"]=row.itemId;
+	  itemDetailsJSON ["Value"]=row.itemCode;
+	
+		/*jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
+		jsonBudgetNameArr.push(jsonFindAccHead);*/
+	jsonitemArr.push(itemDetailsJSON);
+	 }
+	
+	createItemDropDown(jsonitemArr)
+ }
+}
+
+function createItemDropDown(jsonitemArr){
+	var jsonItemArr = [];
+	if(jsonitemArr != null && jsonitemArr.length > 0){
+		for(var i=0; i<jsonitemArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonitemArr[i];
+			
+			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			jsonItemArr.push({id: stateArr.Label,name: stateArr.Value});
+		}
+	}
+		
+	j("#item").select2({
+		data:{ results: jsonItemArr, text: 'name' },
+		placeholder: "Item Code",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonItemArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
+
+function getItemCode(){
+
+ 	var itemID = j("#item").select2('data').id;
+       getItemCodeFromDB(itemID);
+ }
+
+  function getItemCodeFromDB(itemID){
+	j('#errorMsgArea').children('span').text("");
+	if(mydb) {
+ 		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
+        mydb.transaction(function (t) {
+			t.executeSql("SELECT * FROM itemMst where id="+itemID, [], getItemList);
+			//t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
+		});
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
 //Amit End applib
