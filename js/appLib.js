@@ -142,7 +142,7 @@ if (window.openDatabase) {
 		t.executeSql("CREATE TABLE IF NOT EXISTS itemMst (itemId INTEGER PRIMARY KEY ASC, itemCode TEXT, accCodeId INTEGER REFERENCES accCodeMst(accCodeId),poRequired TEXT,grnRequired TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS costCenterMst (costCenterId INTEGER PRIMARY KEY ASC, costCenterName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS budgetMst (budgetId INTEGER PRIMARY KEY ASC, budgetName TEXT)");
-		
+		t.executeSql("CREATE TABLE IF NOT EXISTS subZoneMst (subZoneId INTEGER PRIMARY KEY ASC, subZoneName TEXT)");
 		/*t.executeSql("CREATE TABLE IF NOT EXISTS operationalBudgetMst (opBudgetId INTEGER PRIMARY KEY ASC, opBudgetName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS corporateBudget (corporateId INTEGER PRIMARY KEY ASC,accCodeId INTEGER REFERENCES accCodeMst(accCodeId))");
 		t.executeSql("CREATE TABLE IF NOT EXISTS accHeadMst (acHeadId INTEGER PRIMARY KEY ASC, acHeadName TEXT)");
@@ -1451,8 +1451,7 @@ function synchronizeTRForTS() {
 					  j('#loading_Cat').hide();
 						document.getElementById("syncSuccessMsg").innerHTML = "Purchase Requisition Master synchronized  successfully.";
 						j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-						
-						setTimeout(synchronizeLocationDB, 1000);
+		
 					}
 					else{
 						j('#loading_Cat').hide();
@@ -1460,8 +1459,85 @@ function synchronizeTRForTS() {
 						j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 						
 					}
-					}
+					},
+			  error:function(data) {
+				 alert("Error: Oops something is wrong, Please Contact System Administer");
+			  }
 				});	 
+
+			j.ajax({
+				  url: window.localStorage.getItem("urlPath")+"SyncSubZoneWebService",
+				  type: 'POST',
+				  dataType: 'json',
+				  crossDomain: true,
+				  data: JSON.stringify(jsonSentToSync),
+				  success: function(data) {
+					  if(data.Status=='Success'){
+					  	mydb.transaction(function (t) {
+						t.executeSql("DELETE FROM subZoneMst");
+						var subZoneMstArray = data.SubZoneArray;
+							if(subZoneMstArray != null && subZoneMstArray.length > 0){
+								for(var i=0; i<subZoneMstArray.length; i++ ){
+									var stateArr = new Array();
+									stateArr = subZoneMstArray[i];
+									var subZone_id = stateArr.Value;
+									var subZone_name = stateArr.Label;
+									t.executeSql("INSERT INTO subZoneMst (subZoneId,subZoneName) VALUES (?, ?)", [subZone_id,subZone_name]);
+								}
+							}
+						});	
+						document.getElementById("syncSuccessMsg").innerHTML = "SubZone Master synchronized  successfully.";
+						j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+						
+					}
+					else{
+						document.getElementById("syncFailureMsg").innerHTML = "SubZone Master not synchronized  successfully.";
+						j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+						
+					}
+					},
+			  error:function(data) {
+				 alert("Error: Oops something is wrong, Please Contact System Administer");
+			  }
+
+				});	
+
+				j.ajax({
+			  url: window.localStorage.getItem("urlPath")+"SyncLocationWebService",
+			  type: 'POST',
+			  dataType: 'json',
+			  crossDomain: true,
+			  data: JSON.stringify(jsonSentToSync),
+			  success: function(data) {
+				  if(data.Status=='Success'){
+				  	mydb.transaction(function (t) {
+					t.executeSql("DELETE FROM locationMst");
+					var locationMstArray = data.LocationArray;
+						if(locationMstArray != null && locationMstArray.length > 0){
+							for(var i=0; i<locationMstArray.length; i++ ){
+								var stateArr = new Array();
+								stateArr = locationMstArray[i];
+								var location_id = stateArr.Value;
+								var location_name = stateArr.Label;
+								t.executeSql("INSERT INTO locationMst (locationId,locationName) VALUES (?, ?)", [location_id,location_name]);
+							}
+						}
+					});	
+					document.getElementById("syncSuccessMsg").innerHTML = "Location Master synchronized  successfully.";
+					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+					
+				}
+				else{
+					document.getElementById("syncFailureMsg").innerHTML = "Location Master not synchronized  successfully.";
+					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+					
+				}
+				},
+			  error:function(data) {
+				 alert("Error: Oops something is wrong, Please Contact System Administer");
+			  }
+
+			});	
 		}
 	}
 	function synchronizePRMasterData() {
@@ -1588,15 +1664,14 @@ function synchronizeTRForTS() {
 									}
 								}*/
 								j('#loading_Cat').hide();
-								document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master synchronized Successfully.";
+								document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Related Master synchronized Successfully.";
 								j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 
-								setTimeout(synchronizeLocationDB, 1000);
 							});
 							
 						}else{
 							j('#loading_Cat').hide();
-							document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Master not synchronized Successfully.";
+							document.getElementById("syncFailureMsg").innerHTML = "Purchase Requisition Related Master not synchronized Successfully.";
 							j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 						}
 					},		
@@ -1605,12 +1680,45 @@ function synchronizeTRForTS() {
 					}	
 						
 				});
-			
-		}
-	}
-	
-	function synchronizeLocationDB(jsonSentToSync){
-		j.ajax({
+				
+				j.ajax({
+				  url: window.localStorage.getItem("urlPath")+"SyncSubZoneWebService",
+				  type: 'POST',
+				  dataType: 'json',
+				  crossDomain: true,
+				  data: JSON.stringify(jsonSentToSync),
+				  success: function(data) {
+					  if(data.Status=='Success'){
+					  	mydb.transaction(function (t) {
+						t.executeSql("DELETE FROM subZoneMst");
+						var subZoneMstArray = data.SubZoneArray;
+							if(subZoneMstArray != null && subZoneMstArray.length > 0){
+								for(var i=0; i<subZoneMstArray.length; i++ ){
+									var stateArr = new Array();
+									stateArr = subZoneMstArray[i];
+									var subZone_id = stateArr.Value;
+									var subZone_name = stateArr.Label;
+									t.executeSql("INSERT INTO subZoneMst (subZoneId,subZoneName) VALUES (?, ?)", [subZone_id,subZone_name]);
+								}
+							}
+						});	
+						document.getElementById("syncSuccessMsg").innerHTML = "SubZone Master synchronized  successfully.";
+						j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+						
+					}
+					else{
+						document.getElementById("syncFailureMsg").innerHTML = "SubZone Master not synchronized  successfully.";
+						j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+						
+					}
+					},
+			 		error:function(data) {
+					 alert("Error: Oops something is wrong, Please Contact System Administer");
+			  		}
+
+				});	
+
+				j.ajax({
 			  url: window.localStorage.getItem("urlPath")+"SyncLocationWebService",
 			  type: 'POST',
 			  dataType: 'json',
@@ -1631,21 +1739,25 @@ function synchronizeTRForTS() {
 							}
 						}
 					});	
-					j('#loading_Cat').hide();
 					document.getElementById("syncSuccessMsg").innerHTML = "Location Master synchronized  successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					
 				}
 				else{
-					j('#loading_Cat').hide();
 					document.getElementById("syncFailureMsg").innerHTML = "Location Master not synchronized  successfully.";
 					j('#syncFailureMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
 					
 				}
-				}
+				},
+			 	error:function(data) {
+				 alert("Error: Oops something is wrong, Please Contact System Administer");
+				  }
 
 			});	
+		}
 	}
+	
+
 	
 
 
