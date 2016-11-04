@@ -2130,4 +2130,14 @@ function createLocationDropDown(jsonLocationArr){
 		}
 	}).select2("val","");
 }
- //Amit end  index
+
+function showSubZone(status){
+	if(status== 1){
+		document.getElementById("SubzoneDiv").style.display = "";
+	}
+	else{
+		document.getElementById("SubzoneDiv").style.display = "none";
+	}
+
+}
+ //Amit end  index}

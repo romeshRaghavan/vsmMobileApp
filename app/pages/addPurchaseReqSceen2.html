@@ -57,8 +57,8 @@
                Expenses added successfully.
            </div>
 		   <div style="text-align:center;">
-            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePRDetails(0);">Save & New</button>
-            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePRDetails(1);">Save & Goto Sync</button>
+     <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePRDetails(0);">Save & New</button>
+      <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="displayPurchaseReq();">Save & Goto Sync</button>
 			</div>
           </div>
           </div>
@@ -77,7 +77,8 @@ var currentYear;
 		 currentDate = date.getDate();
 		 currentYear = date.getFullYear();
 		$('#delDate').datepicker({
-		maxDate: new Date(currentYear, currentMonth, currentDate)
+		//maxDate: new Date(currentYear, currentMonth, currentDate)
+    minDate: '+0d'
 		});
 	});
 	currentMonth = currentMonth+1;

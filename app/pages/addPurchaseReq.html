@@ -25,14 +25,22 @@
                 <li>
     <p style="text-align:center;"><font face="verdana" size="1" color="green">PO CAN BE RAISED AT:</font></p>
                 <table align="center">
-                <td><input type="radio" id="poRaised" name="poRaised" value="S" checked>Sub-Zone&nbsp;&nbsp;</td>
+      <td><input type="radio" id="poRaised" name="poRaised" value="S" onclick="showSubZone(1)">Sub-Zone&nbsp;&nbsp;</td>
               
-                <td><input type="radio" id="poRaised" name="poRaised" value="H" > HO&nbsp;&nbsp;</td>
+       <td><input type="radio" id="poRaised" name="poRaised" value="H" onclick="showSubZone(0)"> HO&nbsp;&nbsp;</td>
                
-                <td><input type="radio" id="poRaised" name="poRaised" value="B"> Both&nbsp;&nbsp;</td> 
+      <td> <input type="radio" id="poRaised" name="poRaised"
+        value="B" onclick="showSubZone(0)"  checked > Both&nbsp;&nbsp;</td> 
                 </table>
              
                 </li>
+
+    <div id="SubzoneDiv">
+  <p style="text-align:center;"><font face="verdana" size="1" color="green" >SUBZONE</font></span></p>
+                  <li>
+                    <input id="subzone" type="hidden"  style="width: 98%">
+                  </li>
+                  </div> 
                 
                 <li>
   <p style="text-align:center;"><font face="verdana" size="1" color="green">GRN CAN BE RAISED AT:</font></span></p>
@@ -40,7 +48,7 @@
             <td><input type="radio" id="grnRaised" name="grnRaised" value="H" checked>HO&nbsp;&nbsp;</td>
             <td><input type="radio" id="grnRaised" name="grnRaised" value="Z"> Zone&nbsp;&nbsp;</td>
             <td><input type="radio" id="grnRaised" name="grnRaised" value="L"> Location&nbsp;&nbsp;</td>
-            <td><input type="radio" id="grnRaised" name="grnRaised" value="A"> All&nbsp;&nbsp;</td>
+            <td><input type="radio" id="grnRaised" name="grnRaised" value="A"checked > All&nbsp;&nbsp;</td>
             </table>
                 </li>
                 
@@ -49,7 +57,7 @@
           <table align="center">
             <td><input type="radio" id="acCodeType" name="acCodeType" value="C" checked>Capex&nbsp;&nbsp;</td>
             <td><input type="radio" id="acCodeType" name="acCodeType" value="O"> Opex&nbsp;&nbsp;</td>
-            <td><input type="radio" id="acCodeType" name="acCodeType" value="B"> Both&nbsp;&nbsp;</td>
+            <td><input type="radio" id="acCodeType" name="acCodeType" value="B" checked > Both&nbsp;&nbsp;</td>
             </table>
                </li>
                
@@ -108,6 +116,9 @@ var currentYear;
   });
      j("#opBudget").change(function() {
       getOpBudgetName();
+  });
+     j("#subzone").change(function() {
+      getSubZoneName();
   });
     onloadPR();
     </script> 

@@ -1842,9 +1842,10 @@ function savePRDetails(status){
 }
 
 function onloadPR() {
- 	
- 		var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
- 	
+ 	document.getElementById("SubzoneDiv").style.display = "none";
+ 	var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
+
+
  		if(BudgetingStatus =='N'){
  			
  			document.getElementById("Budgeting").style.display = "none";
@@ -1857,7 +1858,7 @@ function onloadPR() {
 	if (mydb) {
 		mydb.transaction(function (t) {
 				t.executeSql("SELECT * FROM accHeadMst", [], getAccHeadList);
-				//t.executeSql("SELECT * FROM currencyMst", [], getCurrencyList);
+				t.executeSql("SELECT * FROM subZoneMst", [], getsubZoneList);
 				//t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
 				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);
 				t.executeSql("SELECT * FROM budgetMst", [], getBudgetList);
@@ -2190,6 +2191,74 @@ function getItemCode(){
  		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
         mydb.transaction(function (t) {
 			t.executeSql("SELECT * FROM itemMst where id="+itemID, [], getItemList);
+			//t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
+		});
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
+
+
+function getsubZoneList(transaction, results) {
+
+ var jsonsubZoneArr = [];
+    if(results!=null){
+    	
+	 for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+        var sunZoneDetailsJSON = new Object();
+      sunZoneDetailsJSON ["Label"]=row.subZoneId;
+	  sunZoneDetailsJSON ["Value"]=row.subZoneName;
+	
+		/*jsonFindAccHead["Label"] = row.acHeadId;
+		jsonFindAccHead["Value"] = row.acHeadName;
+		jsonBudgetNameArr.push(jsonFindAccHead);*/
+	jsonsubZoneArr.push(sunZoneDetailsJSON);
+	 }
+	
+	createSubZoneDropDown(jsonsubZoneArr)
+ }
+}
+
+function createSubZoneDropDown(jsonsubZoneArr){
+	var jsonZoneArr = [];
+	if(jsonsubZoneArr != null && jsonsubZoneArr.length > 0){
+		for(var i=0; i<jsonsubZoneArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonsubZoneArr[i];
+			
+			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
+			jsonZoneArr.push({id: stateArr.Label,name: stateArr.Value});
+		}
+	}
+		
+	j("#subzone").select2({
+		data:{ results: jsonZoneArr, text: 'name' },
+		placeholder: "SubZone Name",
+		minimumResultsForSearch: -1,
+		initSelection: function (element, callback) {
+			callback(jsonZoneArr[0]);
+		},
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	}).select2("val","");
+}
+
+function getSubZoneName(){
+
+ 	var subzoneID = j("#subzone").select2('data').id;
+       getSubZoneFromDB(subzoneID);
+ }
+
+  function getSubZoneFromDB(subzoneID){
+	j('#errorMsgArea').children('span').text("");
+	if(mydb) {
+ 		//Get all the employeeDetails from the database with a select statement, set outputEmployeeDetails as the callback function for the executeSql command
+        mydb.transaction(function (t) {
+			t.executeSql("SELECT * FROM subZoneMst where id="+subzoneID, [], getsubZoneList);
 			//t.executeSql("SELECT * FROM accountHeadMst where id="+opBudgetID, [], getOperationalBudgetList);
 		});
     } else {
