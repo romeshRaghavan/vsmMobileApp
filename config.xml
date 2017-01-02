@@ -31,9 +31,9 @@
     <feature name="http://api.phonegap.com/1.0/file"/>
     <feature name="http://api.phonegap.com/1.0/media"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
-    <!-- <gap:plugin name="org.apache.cordova.battery-status" /> -->
-    <gap:plugin name="org.apache.cordova.core.camera" />
-    <!-- <plugin name="org.apache.cordova.camera" spec="0.2.3" source="pgb" /> -->
+    <!-- <gap:plugin name="org.apache.cordova.battery-status" />
+    <gap:plugin name="org.apache.cordova.core.camera" /> -->
+    <!-- <plugin name="org.apache.cordova.camera" spec="0.2.3" source="pgb" /> 
     <gap:plugin name="org.apache.cordova.media-capture" />
     <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.contacts" />
@@ -51,7 +51,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="org.apache.cordova.file"/>
-    <gap:plugin name="org.apache.cordova.file-transfer"/>
+    <gap:plugin name="org.apache.cordova.file-transfer"/>-->
     <!-- <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" /> -->
     <gap:plugin name="com.synconset.imagepicker" version="1.0.4" />
     <!-- <plugin name="File" value="CDVFile" />
