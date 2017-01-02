@@ -1,91 +1,44 @@
+
       <div class="modal-body clearfix">
         <div class="row">
           <div class="col-lg-12 clearfix addanexpense">
-            <h1 >Add Purchase Requisition</h1>
-            <div class="expenseform clearfix" data-role="page" id="page1">
-              <ul>
-                <li>
-                  <p style="text-align:center;"><font face="verdana" size="1" color="green" >PR TITLE</font></span></p>
-        <input id="prTitle" type="text" align="center" placeholder="Enter Title">
-        </li>
-                
-                <!-- Displayed on basis of budgeting status -->
-  <div id="Budgeting">
-  <p style="text-align:center;"><font face="verdana" size="1" color="green" >OPERATIONAL BUDGET</font></span></p>
-                  <li id="budget">
-                    <input id="opBudget" type="hidden"  style="width: 98%">
-                  </li>
-                  </div> 
-                                 <!-- Displayed on basis of budgeting status -->
-    <p style="text-align:center;"><font face="verdana" size="1" color="green">ACCOUNT HEAD</font>
-                <li>
-                  <input id="accountHead" type="hidden" style="width: 98%">
-                </li>
-
-                <li>
-    <p style="text-align:center;"><font face="verdana" size="1" color="green">PO CAN BE RAISED AT:</font></p>
-                <table align="center">
-      <td><input type="radio" id="poRaised" name="poRaised" value="S" onclick="showSubZone(1)">Sub-Zone&nbsp;&nbsp;</td>
-              
-       <td><input type="radio" id="poRaised" name="poRaised" value="H" onclick="showSubZone(0)"> HO&nbsp;&nbsp;</td>
-               
-      <td> <input type="radio" id="poRaised" name="poRaised"
-        value="B" onclick="showSubZone(0)"  checked > Both&nbsp;&nbsp;</td> 
-                </table>
              
-                </li>
+            <div class="expenseform clearfix" data-role="page" id="page1">
+            <li>
+              <p style="text-align:center;"><font face="verdana" size="1" color="green">ITEM</font></p>
+               <li>
+                <input id="item" type="hidden" style="width: 98%">
+                 </li>
+            </li> 
+    <table align="center">
+    <tr>
+    <td class="prQuantity"><p style="text-align:center;"><font face="verdana" size="1" color="green">Quantity</font></p></td>
+ 
+    <td class="prRate"><p style="text-align:center;"><font face="verdana" size="1" color="green">Rate</font></p></td>
+    </tr>
+    </table>             
+    <table align="center">
+    <tr>
+    <td><input id="prquantity" type="text"  placeholder="QTY" style="text-align:right;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+ 
+    <td><input id="prrate" type="text"  placeholder="Rate" style="text-align:right;width: 70%;border: solid #cccccc; border-width: 1px"></td>
+    </tr>
+    </table>            
+ <div role="main" class="ui-content">
+             <p class="deliveryDate"><font face="verdana" size="1" color="green">Expected Delivery Date:</font></p>
+             <input id="delDate" type="text"  style="text-align:center;width: 98%;border: solid #cccccc; border-width: 1px" readonly="readonly" placeholder="DELIVERY DATE">
+             </div>  
+                <li>
+              
 
-    <div id="SubzoneDiv">
-  <p style="text-align:center;"><font face="verdana" size="1" color="green" >SUBZONE</font></span></p>
-                  <li>
-                    <input id="subzone" type="hidden"  style="width: 98%">
-                  </li>
-                  </div> 
-                
-                <li>
-  <p style="text-align:center;"><font face="verdana" size="1" color="green">GRN CAN BE RAISED AT:</font></span></p>
-           <table align="center">
-            <td><input type="radio" id="grnRaised" name="grnRaised" value="H" checked>HO&nbsp;&nbsp;</td>
-            <td><input type="radio" id="grnRaised" name="grnRaised" value="Z"> Zone&nbsp;&nbsp;</td>
-            <td><input type="radio" id="grnRaised" name="grnRaised" value="L"> Location&nbsp;&nbsp;</td>
-            <td><input type="radio" id="grnRaised" name="grnRaised" value="A"checked > All&nbsp;&nbsp;</td>
-            </table>
-                </li>
-                
-                <li>
-  <p style="text-align:center;"><font face="verdana" size="1" color="green">TYPE OF ACCOUNT CODE:</font></span></p>
-          <table align="center">
-            <td><input type="radio" id="acCodeType" name="acCodeType" value="C" checked>Capex&nbsp;&nbsp;</td>
-            <td><input type="radio" id="acCodeType" name="acCodeType" value="O"> Opex&nbsp;&nbsp;</td>
-            <td><input type="radio" id="acCodeType" name="acCodeType" value="B" checked > Both&nbsp;&nbsp;</td>
-            </table>
-               </li>
-               
-        <!-- <li>
-          <p><font face="verdana" size="1" color="green">Unit is no. of persons/Kms/meals etc.</font></span></p>
-                  <input id="expUnit" type="tel" style="width: 22%" placeholder="Units" onkeyup="calculatePerUnit();">
-          <input id="expAmt" type="tel" style="width: 38%" placeholder="Amount" onkeyup="checkPerUnitExceptionStatusForBEAtLineLevel();">
-                  <input id="currency" type="hidden" style="width: 33%">
-          <p id="errorMsgArea" ><span id="errorSpan"></span></p>
-        </li>
-        
-               <div >
-        <li style="text-align:left;">
-                  <ul>
-            <img src="images/camera.png" onclick="capturePhoto(0,'BE');" width="15%" height="15%" >
-            <img src="images/gallery.png" onclick="getPhoto(pictureSource.PHOTOLIBRARY,0,'BE');" width="15%" height="15%" >
-            <img style="display:none;width:40%;height:100px;align:right;" id="smallImageBE" src="" />
-            <input style="display:none;" type="file" id="imageBE" />
-          </ul>
-         </li> -->
          </div>
       
             <div  style="display:none" id="displayText" class="displayTextCSS">
-               Expenses added successfully.
+               PR added successfully.
            </div>
        <div style="text-align:center;">
-            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePRDetails(0);">NEXT</button>
-            <button class="btn btn-primary btn-lg " style="width: 40%;height: 52px;" onclick="savePRDetails(1);">CANCEL</button>
+            <button class="btn btn-primary1 btn-lg " style="width: 24%;height: 28px;" onclick="backToHome();">CANCEL</button>
+            <button class="btn btn-primary btn-lg " style="width: 20%;height: 28px;" onclick="itemCartPage(2);">NEXT</button>            
       </div>
           </div>
           </div>
@@ -103,9 +56,11 @@ var currentYear;
      currentMonth = date.getMonth();
      currentDate = date.getDate();
      currentYear = date.getFullYear();
-    $('#delDate').datepicker({
-    maxDate: new Date(currentYear, currentMonth, currentDate)
+ 
+   $('#delDate').datepicker({
+    minDate: new Date(currentYear, currentMonth, currentDate)
     });
+     
   });
   currentMonth = currentMonth+1;
   if(currentDate<10){currentDate='0'+currentDate}
@@ -120,5 +75,20 @@ var currentYear;
      j("#subzone").change(function() {
       getSubZoneName();
   });
+       j("#item").change(function() {
+      getItemCode();
+  });     
     onloadPR();
+    if(backBtn){
+      showEasyPR(1);
+    }
     </script> 
+
+    <style>
+.btn-primary1 {
+    color: #fff;
+    background-color: #67D9D6;
+    border-color: #2e6da4;
+  }
+
+</style>
