@@ -2578,17 +2578,17 @@ if (isNumeric(rate,"Rate")== false) {
 	}
 
 function isNumeric(object,messageContent) {
-	if(isNaN(object.value)){
+	if(isNaN(object)){
 		alert(messageContent + " should be numeric.");
 	//	object.focus();
 		return false;
 	}
-	else if(object.value.indexOf('-') != -1){
+	else if(object.indexOf('-') != -1){
 		alert(messageContent + " should not be negative.");
 	//	object.focus();
 		return false;
 	}
-	else if(object.value.indexOf(' ') != -1){
+	else if(object.indexOf(' ') != -1){
 		alert(messageContent + " should not contain space.");
 	//	object.focus();
 		return false;
