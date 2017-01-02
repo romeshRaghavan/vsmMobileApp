@@ -2557,4 +2557,45 @@ function showItemPreview(){
 		document.getElementById("prTitle").value = 'PR/'+currentDate+'/'+ window.localStorage.getItem("EmployeeName");
 }
 
+function validateQuantity(){
+	var quantity = document.getElementById("prquantity").value;
+if (isNumeric(quantity,"Quantity")== false) {
+			document.getElementById("prquantity").value="";
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+function validateRate(){
+	var rate = document.getElementById("prrate").value;
+if (isNumeric(rate,"Rate")== false) {
+			document.getElementById("prrate").value="";
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+function isNumeric(object,messageContent) {
+	if(isNaN(object.value)){
+		alert(messageContent + " should be numeric.");
+	//	object.focus();
+		return false;
+	}
+	else if(object.value.indexOf('-') != -1){
+		alert(messageContent + " should not be negative.");
+	//	object.focus();
+		return false;
+	}
+	else if(object.value.indexOf(' ') != -1){
+		alert(messageContent + " should not contain space.");
+	//	object.focus();
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 
