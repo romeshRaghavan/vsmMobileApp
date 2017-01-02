@@ -1,0 +1,377 @@
+/* theming done by Nitish 27-10-2015 */
+
+@font-face {
+ font-family: 'arialround';
+ src: url('../fonts/ARLRDBD.eot');
+ src: local('arialround'), url('../fonts/ARLRDBD.woff') format('woff'), url('../fonts/ARLRDBD.TTF') format('truetype');
+}
+* {
+	outline:none;
+}
+
+.bodyOne {
+	margin:0;
+	padding:0;
+	background-color:#eeeeee;
+	font-family:'arialround', Arial, Helvetica, sans-serif;
+	color:#424242;
+	font-size:12px;
+	overflow-x:scroll;
+}
+.clear {
+	clear:both;
+	margin:0;
+	padding:0;
+}
+a {
+	outline:none;
+	text-decoration:none;
+	color: #2E99E1;
+}
+a:hover {
+	color: #e26324;
+}
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+::-moz-selection {
+ background:#4ebbd2;
+ color:#ffffff;
+ text-shadow:none
+}
+::selection {
+ background:#4ebbd2;
+ color:#ffffff;
+ text-shadow:none
+}
+img {
+	border:none;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin:0;
+	padding:0;
+	text-align: left;
+}
+ul, ol {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.main-wrapper {
+	background-image:url(../images/background-expense.jpg);
+	background-position:left center;
+	background-repeat:no-repeat;
+	width:100%;
+	margin:-3px auto;
+	height:227px;
+	padding:0;
+}
+.rightpnaelform {
+    background-color: #4ebbd2;
+    float: right;
+    height: 737px;
+    position: relative;
+    width: 390px;
+}
+.explogo {
+	text-align:center;
+	background-color:#FFFFFF;
+	padding:25px 0;
+	margin:75px 0 0 0;
+}
+.leftpanelsection {
+	float:left;
+	width:744px;
+	position:relative;
+}
+.procureToPay {
+	font-size:25px;
+	color:#9BCC49;
+	text-align:center;
+	margin-top:9px;
+}
+.procureToPaySyncPage {
+	font-size:22px;
+	color:#9BCC49;
+	text-align:center;
+	margin-top:35px;
+}
+.softwarecontent {
+	font-size:24px;
+	color:#ffffff;
+	text-align:center;
+	margin-top:75px;
+}
+.softwarecontent b, .softwarecontent strong {
+	font-weight:normal;
+	color:#4ebbd2;
+}
+.softwarecontent strong {
+	font-weight:normal;
+	color:#9bcc53;
+}
+.expproducts {
+    float: left;
+    width: 100%;
+}
+.expproducts ul li {
+    display: inline-block;
+    float: left;
+    text-align: center;
+    width: 25%;
+}
+.expproducts ul li p {
+	display:block;
+	color:#012931;
+	font-size:14px;
+}
+.expproducts ul li span.expmng {
+	display:inline-block;
+	color:#012931;
+	font-size:14px;
+	background-image:url(../images/travel-manager.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	width:125px;
+	height:125px;
+	text-indent: -9999px;
+}
+.expproducts ul li span.controller {
+	display:inline-block;
+	color:#012931;
+	font-size:14px;
+	background-image:url(../images/exp-controller.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	width:125px;
+	height:125px;
+	text-indent: -9999px;
+}
+.expproducts ul li span.procmanag {
+	display:inline-block;
+	color:#012931;
+	font-size:14px;
+	background-image:url(../images/procurement-manage.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	width:125px;
+	height:125px;
+	text-indent: -9999px;
+}
+.expproducts ul li span.invoivemng {
+	display:inline-block;
+	color:#012931;
+	font-size:14px;
+	background-image:url(../images/invoice-manager.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+	width:125px;
+	height:125px;
+	text-indent: -9999px;
+}
+.expproducts ul li span.expmng:hover, .expproducts ul li span.controller:hover, .expproducts ul li span.procmanag:hover, .expproducts ul li span.invoivemng:hover {
+	background-position:left bottom;
+}
+.closerlook {
+    clear: both;
+    display: block;
+    margin: 30px auto 0;
+    width: 90%;
+}
+.closerlook h2 {
+    color: #012931;
+    float: left;
+    font-size: 26px;
+    font-weight: normal;
+    text-align: center;
+    width: 77%;
+}
+.thumbnailbox, .tumbnailwrapper {
+	position:relative;
+}
+.thumbnailbg {
+    background-color: #ffffff;
+    height: 320px;
+    left: 0;
+    margin: 0 auto;
+    opacity: 0.6;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 666px;
+    z-index: 1;
+}
+.thumbnailbox {
+    z-index: 99;
+}
+.loginbox {
+    margin: 20px auto 0;
+    width: 65%;
+}
+.loginbox h4 {
+	font-weight:normal;
+	color:#ffffff;
+}
+.expproducts {
+    float: none;
+    margin: 0 auto;
+    padding-top: 20px;
+    width: 90%;
+}
+.loginbox input[type="text"], .loginbox input[type="password"] {
+    border: 1px solid #dddddd;
+    color: #666666;
+    padding: 6px;
+    width: 95%;
+}
+.loginbox li {
+    margin-bottom: 15px;
+    text-align: center;
+}
+.loginbox h4 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+.forgotpw li:first-child {
+    display: inline-block;
+    float: left;
+}
+.forgotpw li:last-child {
+    display: inline-block;
+    float: right;
+}
+.forgotpw li, .forgotpw li a {
+	color:#ffffff;
+}
+.forgotpw input {
+    float: left;
+    margin: 0 8px 0 0;
+    padding: 0;
+}
+.captchanbtn ul li {
+	text-align:left;
+}
+.captchanbtn ul li {
+	text-align:left;
+}
+.btnlogin {
+    background-color: #97c94e;
+    border: medium none;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 6px;
+    width: 110px;
+}
+.letstalkbox {
+    position: absolute;
+    right: 0;
+    text-align: left;
+}
+.letstalkcontent {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: normal;
+    left: 20px;
+    position: absolute;
+    top: 30px;
+}
+.letstalkcontent a {
+	color:#ffffff;
+}
+.letstalkcontent h3 {
+    font-size: 20px;
+    font-weight: normal;
+}
+.letstalkcontent p {
+	margin:10px 0;
+	padding:0;
+}
+.captchanbtn {
+	position:relative;
+}
+.refresicon {
+    background-image: url("../images/refreshicon.jpg");
+    background-position: left top;
+    background-repeat: no-repeat;
+    border: medium none;
+    cursor: pointer;
+    height: 39px;
+    right: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 34px;
+}
+.clsButton,.clsLogin { /*border-top: 1px solid #fcfcfc;*/
+	background: #7dba0d !important; /* for non-css3 browsers */
+	filter: progid :   DXImageTransform.Microsoft.gradient (   startColorstr
+		=    '#7dba0d', endColorstr =   '#9dc15a' ) !important; /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#7dba0d),
+		to(#9dc15a) ) !important; /*for webkit browsers */
+	background: -moz-linear-gradient(top, #7dba0d, #9dc15a) !important;
+	background-color: #7dba0d !important;
+	/* for firefox 3.6+ */
+	padding: 4px;
+	border: 1px solid #558618;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	/*text-shadow: rgba(0, 0, 0, .4) 0 1px 0;*/
+	color: #ffffff !important;
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	margin: 5px;
+	width: 80px;
+	height: 35px;
+}
+input#usr,input[type=password],.languageselect select {
+	/*border: 1px solid #b3b3ff;
+	border-radius: 2px;*/
+	color: #333;
+	padding: 5px;
+	border: 1px solid #dddddd;
+}
+input[type=text]:hover { /*border-radius: 3px;*/
+}
+input[type=text] {
+	border: 1px solid #dddddd !important;
+	padding: 3px;
+}
+.clsLoginLabel {
+	font-family: arial;
+	font-size: 11px;
+	color: white;
+	font-weight: bolder;
+	padding-bottom: 3px;
+	padding-top: 3px; /*border-bottom: 1px solid #EAEFF1;
+	 */
+	border-left-style: none; /*border-left-color:  #ffffff*/
+}
+.alertmessage {
+	color: #ff0000;
+	float: none;
+	font-weight: bold;
+	margin: 0 auto;
+	padding: 6px;
+	position: absolute;
+	text-align: center;
+	top: 180px;
+	width: 400px;
+}
+form p label {
+    padding-left : 8px;
+    position: absolute;
+    padding-top: 8px;
+}
+form, form fieldset input, form fieldset textarea, form label {
+	font-size: 10pt;
+	color:#878f8f;
+}

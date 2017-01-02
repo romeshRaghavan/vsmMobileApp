@@ -123,7 +123,7 @@
 	font-weight: bold;
 	margin: 0 auto 4px;
 	text-align: left;
-	width: 98%;
+	width: 44%;
 }
 .table-responsive td:first-child {
 	font-weight:bold;
@@ -150,6 +150,21 @@
     margin-bottom: 3%;
     margin-left: 30%;
 	margin-right: 70px;
+}
+.addprlogo {
+	background-image: url("../images/EasyPR.png");
+    background-repeat: no-repeat;
+    width: 363px;
+    height: 120px;
+    margin-top: 0%;
+}
+.addinvoicelogo {
+	background-image: url("../images/Invoice.png");
+    background-repeat: no-repeat;
+    width: 360px;
+    height: 125px;
+    margin-top: 0%;
+    margin-bottom: 8%;
 }
 .displayexpenselogo {
 	background-image: url("../images/view-expense.png");
@@ -384,10 +399,21 @@
 }
 .expenzingImg{
     position: absolute;
-    top: -2px;
-    left: 63%;
+    top: -33px;
     z-index: 100;
-    max-width: 200%;
+    max-width: 112px;
+}
+.expenzingImgForPR1{
+    position: absolute;
+    top: -159px;
+    z-index: 100;
+    max-width: 112px;
+}
+.expenzingImgForPR2{
+    position: absolute;
+    top: 5px;
+    z-index: 100;
+    max-width: 112px;
 }
 .expenzingMainImg{
 	position: absolute;
@@ -428,7 +454,8 @@
 .Table
     {
        display: table;
-	   padding: 5%;
+	   padding-left: 45%;
+	   /*padding-top: 4%; */
   }	
   
 
@@ -463,4 +490,115 @@
 	margin-bottom: -8%;
     margin-left: 30%;
 	margin-right: 70px;
+}
+.stepOneImgPR {
+	background-image: url('../images/StepOnePRImg.png');
+	background-repeat: no-repeat;
+	width: 300px;
+	height: 65px;
+    margin-bottom: 2%;
+    margin-left: 7%;
+	margin-right: 70px;
+	margin-top:10px;
+}
+.stepTwoImgPR {
+	background-image: url('../images/StepTwoPRImg.png');
+	background-repeat: no-repeat;
+	width: 300px;
+	height: 65px;
+    margin-bottom: 2%;
+    margin-left: 7%;
+	margin-right: 70px;
+	margin-top:27px;
+}
+.stepThreeImgPR {
+	background-image: url('../images/StepThreePRImg.png');
+	background-repeat: no-repeat;
+	width: 300px;
+	height: 72px;
+    margin-bottom: 2%;
+    margin-left: 7%;
+	margin-right: 70px;
+	margin-top:27px;
+}
+.homelogo {
+	background-image: url("../images/home.png");
+    background-repeat: no-repeat;
+    width: 57px;
+    height: 55px;
+    margin-bottom: 3%;
+    margin-left: 45%;
+	margin-right: 70px;
+}
+.expenzinglogo {
+    position: absolute;
+    top: -15px;
+    z-index: 100;
+    max-width: 26%;
+}
+.deliveryDate {
+    text-align: center;
+    padding-top: 3%;
+}
+.prQuantity {
+    text-align: center;
+    width: 12%;
+}
+.prRate {
+    text-align: center;
+    width: 20%;
+}
+.tdalignment {
+	vertical-align:top;
+}
+.clsTableHeader {
+	font-family: Arial;
+	font-size: 12px;
+	font-weight: bold;
+	color: #ffffff;
+	border-bottom: 1px solid #ffffff;
+	background-color: #14A6C5;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	padding-left: 3px;
+	text-align: center;/*-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	-opera-border-radius:4px;
+	-khtml-border-radius:4px;
+	border-radius:4px;*/
+
+}
+.myprofile{
+	background-image: url("../images/myprofile.png");
+    width: 20px;
+    height: 20px;
+    margin :0px;
+}
+
+.prsync{
+	background-image: url("../images/syncpr.png");
+    width: 20px;
+    height: 20px;
+   margin :0px;
+}
+
+.notification{
+	background-image: url("../images/notifications.png");
+    width: 20px;
+    height: 20px;
+    margin :0px;
+}
+
+.aboutus{
+	background-image: url("../images/aboutus.png");
+    width: 20px;
+    height: 20px;
+    margin :0px;
+}
+
+.help{
+	background-image: url("../images/Help_Circle_Blue.png");
+    width: 20px;
+    height: 20px;
+    margin :0px;
 }

@@ -2836,7 +2836,7 @@ padding-top:6px
 }
 .btn-group-lg > .btn, .btn-lg {
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     line-height: 1.0;
     padding: 7px 7px;
@@ -2924,7 +2924,7 @@ transition-duration:.35s;
 	display:none;
 	float:left;
 	min-width:160px;
-	padding:5px 0;
+	padding:0px 0;
 	margin:2px 0 0;
 	font-size:14px;
 	text-align:left;
@@ -4958,7 +4958,7 @@ transition:transform .3s ease-out;
 }
 .modal-body {
 	position:relative;
-	padding:15px
+	padding:13px
 }
 .modal-footer {
 	padding:15px;
