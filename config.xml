@@ -31,7 +31,7 @@
     <feature name="http://api.phonegap.com/1.0/file"/>
     <feature name="http://api.phonegap.com/1.0/media"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
-    <gap:plugin name="org.apache.cordova.battery-status" />
+    <!-- <gap:plugin name="org.apache.cordova.battery-status" /> -->
     <gap:plugin name="org.apache.cordova.core.camera" />
     <!-- <plugin name="org.apache.cordova.camera" spec="0.2.3" source="pgb" /> -->
     <gap:plugin name="org.apache.cordova.media-capture" />
