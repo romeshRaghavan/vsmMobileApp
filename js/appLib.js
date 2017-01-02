@@ -8,9 +8,12 @@ var employeeId;
 var empFirstName;
 var successSyncStatusBE =false;
 var successSyncStatusTR =false;
+var backBtn = false;
 
 var successMsgForCurrency = "Currency synchronized successfully.";
 var errorMsgForCurrency = "Currency not synchronized successfully.";
+var jsonToAppSend = new Object();
+var jsonEasyPrArr = [];
 
 var app = {
     // Application Constructor
@@ -48,8 +51,8 @@ function goBack() {
 	var currentUser=getUserID();
 	
 	var loginPath=defaultPagePath+'loginPage.html';
-	var headerBackBtn=defaultPagePath+'backbtnPage.html';
-	var headerCatMsg=defaultPagePath+'categoryMsgPage.html';
+	var headerBackBtn=defaultPagePath+'prInvoice.html';
+	var headerCatMsg=defaultPagePath+'expenzingImageWithSyncPage.html';
 	
 	if(currentUser==''){
 		j('#mainContainer').load(loginPath);
@@ -68,7 +71,7 @@ function goBack() {
 				|| pg=="app/pages/addTravelSettlement.html"){
 				
 				j('#mainHeader').load(headerBackBtn);
-			}else if(pg=="app/pages/category.html"){
+			}else if(pg=="app/pages/prInvoice.html"){
 				
 				j('#mainHeader').load(headerCatMsg);
 			}
@@ -139,7 +142,7 @@ if (window.openDatabase) {
 		t.executeSql("CREATE TABLE IF NOT EXISTS corporateBudget (corporateId INTEGER PRIMARY KEY ASC, accCodeId INTEGER REFERENCES accCodeMst(accCodeId))");
 		t.executeSql("CREATE TABLE IF NOT EXISTS accHeadMst (acHeadId INTEGER PRIMARY KEY ASC, acHeadName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS accCodeMst (accCodeId INTEGER PRIMARY KEY ASC, acHeadId INTEGER REFERENCES accountHeadMst(acHeadId),accCodeName TEXT,capexOpex TEXT )");
-		t.executeSql("CREATE TABLE IF NOT EXISTS itemMst (itemId INTEGER PRIMARY KEY ASC, itemCode TEXT, accCodeId INTEGER REFERENCES accCodeMst(accCodeId),poRequired TEXT,grnRequired TEXT)");
+		t.executeSql("CREATE TABLE IF NOT EXISTS itemMst (itemId INTEGER PRIMARY KEY ASC,itemName TEXT, itemCode TEXT, accCodeId INTEGER REFERENCES accCodeMst(accCodeId),poRequired TEXT,grnRequired TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS costCenterMst (costCenterId INTEGER PRIMARY KEY ASC, costCenterName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS budgetMst (budgetId INTEGER PRIMARY KEY ASC, budgetName TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS subZoneMst (subZoneId INTEGER PRIMARY KEY ASC, subZoneName TEXT)");
@@ -962,12 +965,26 @@ function fetchTrvlTypeList(transaction, results) {
 function resetUserSessionDetails(){
 	 window.localStorage.removeItem("prRole");
 	 window.localStorage.removeItem("EmployeeId");
-	 window.localStorage.removeItem("BudgetingInitiates");
-	 window.localStorage.removeItem("UnitId");
-	 window.localStorage.removeItem("LastName");
+	 window.localStorage.setItem("EmployeeName");	 
 	 window.localStorage.removeItem("BudgetingStatus");
+	 window.localStorage.removeItem("BudgetingInitiates");
+	 window.localStorage.setItem("UnitId");	
+	 window.localStorage.setItem("forUnitId");
+	 window.localStorage.setItem("ccId");
+	 window.localStorage.setItem("ccName");
+	 window.localStorage.setItem("pcId");
+	 window.localStorage.setItem("pcName");
+	 window.localStorage.setItem("companyId");
+	 window.localStorage.setItem("locationName");
+	 window.localStorage.setItem("locationId");
+	 window.localStorage.setItem("designation");
+	 window.localStorage.setItem("designationId");
+	 window.localStorage.setItem("zone");
+	 window.localStorage.setItem("zoneId");
+	 window.localStorage.removeItem("LastName");
 	 window.localStorage.removeItem("UserName");
 	 window.localStorage.removeItem("Password");
+ 
 	 dropAllTableDetails();
 }
 
@@ -978,8 +995,43 @@ function setUserSessionDetails(val,userJSON){
 	 window.localStorage.setItem("budgetingStatus",val.budgetingStatus);
 	 window.localStorage.setItem("budgetingInitiates",val.budgetingInitiates);
 	 window.localStorage.setItem("UnitId",val.unitId);	
+	 window.localStorage.setItem("forUnitId",val.forUnitId);
+	 window.localStorage.setItem("ccId",val.ccId);
+	 window.localStorage.setItem("ccName",val.ccName);
+	 window.localStorage.setItem("pcId",val.pcId);
+	 window.localStorage.setItem("pcName",val.pcName);
+	 window.localStorage.setItem("companyId",val.companyId);
+	 window.localStorage.setItem("locationName",val.locationName);
+	 window.localStorage.setItem("locationId",val.locationId);
+	 window.localStorage.setItem("designation",val.designation);
+	 window.localStorage.setItem("designationId",val.designationId);
+	 window.localStorage.setItem("zoneId",val.zoneId);
+	 window.localStorage.setItem("zone",val.zone);
 	 window.localStorage.setItem("UserName",userJSON["user"]);
 	 window.localStorage.setItem("Password",userJSON["pass"]);
+}
+
+function setJsonToAppArray(){
+	jsonToAppSend["EmployeeId"] = window.localStorage.getItem("EmployeeId");
+	jsonToAppSend["UnitId"] = window.localStorage.getItem("UnitId");
+	jsonToAppSend["zoneId"] = window.localStorage.getItem("zoneId");
+	jsonToAppSend["designationId"] = window.localStorage.getItem("designationId");
+	jsonToAppSend["forUnitId"] = window.localStorage.getItem("forUnitId");
+	jsonToAppSend["companyId"] = window.localStorage.getItem("companyId");
+	jsonToAppSend["budgetingStatus"] = window.localStorage.getItem("budgetingStatus");
+	jsonToAppSend["budgetingInitiates"] = window.localStorage.getItem("budgetingInitiates");
+	jsonToAppSend["prTitle"] = document.getElementById("prTitle").value;
+    jsonToAppSend["pcId"] = window.localStorage.getItem("pcId");
+	jsonToAppSend["pcName"] = window.localStorage.getItem("pcName");
+    jsonToAppSend["ccId"] = window.localStorage.getItem("ccId"); 
+    jsonToAppSend["ccName"] = window.localStorage.getItem("ccName");
+    jsonToAppSend["locationId"] = window.localStorage.getItem("locationId");
+	jsonToAppSend["locationName"] = window.localStorage.getItem("locationName");
+
+	var delDate = jsonToAppSend["deliveryDate"];
+
+	var newDateFormat = delDate.substring(3,5)+"-"+(delDate.substring(0,2))+"-"+delDate.substring(6,10);	  
+	jsonToAppSend["deliveryDate"] = newDateFormat;
 }
 
 function setUserStatusInLocalStorage(status){
@@ -1397,7 +1449,6 @@ function synchronizeTRForTS() {
 		jsonSentToSync["processId"] = 6;
 		j('#loading_Cat').show();
 		if (mydb) {
-			
 			j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SyncPRDataNonBudgetWebService",
 				  type: 'POST',
@@ -1438,12 +1489,12 @@ function synchronizeTRForTS() {
 									var stateArr1 = new Array();
 									stateArr1 = itemArray[i];
 									var item_code_id = stateArr1.ItemId;
-									var item_code = stateArr1.ItemCode;
 									var item_name = stateArr1.ItemName;
+									var item_code = stateArr1.ItemCode;
 									var grnReq = stateArr1.grnReq;
 									var poReq = stateArr1.PoRequired;
 									var acc_code_id = stateArr1.AcCodeId;
-									t.executeSql("INSERT INTO itemMst (itemId,itemCode,accCodeId,poRequired,grnRequired) VALUES (?,?,?,?,?)",[item_code_id,item_code,acc_code_id,poReq,grnReq]);
+									t.executeSql("INSERT INTO itemMst (itemId,itemName,itemCode,accCodeId,poRequired,grnRequired) VALUES (?,?,?,?,?,?)",[item_code_id,item_name,item_code,acc_code_id,poReq,grnReq]);
 								}
 							}
 
@@ -1461,11 +1512,11 @@ function synchronizeTRForTS() {
 					}
 					},
 			  error:function(data) {
-				 alert("Error: Oops something is wrong, Please Contact System Administer");
+				 alert("Error: Oops something is wrong, Please Contact System Administrator");
 			  }
 				});	 
 
-			j.ajax({
+		/*	j.ajax({
 				  url: window.localStorage.getItem("urlPath")+"SyncSubZoneWebService",
 				  type: 'POST',
 				  dataType: 'json',
@@ -1497,10 +1548,10 @@ function synchronizeTRForTS() {
 					}
 					},
 			  error:function(data) {
-				 alert("Error: Oops something is wrong, Please Contact System Administer");
+				 alert("Error: Oops something is wrong, Please Contact System Administrator");
 			  }
 
-				});	
+				});	*/
 
 				j.ajax({
 			  url: window.localStorage.getItem("urlPath")+"SyncLocationWebService",
@@ -1534,7 +1585,7 @@ function synchronizeTRForTS() {
 				}
 				},
 			  error:function(data) {
-				 alert("Error: Oops something is wrong, Please Contact System Administer");
+				 alert("Error: Oops something is wrong, Please Contact System Administrator");
 			  }
 
 			});	
@@ -1676,7 +1727,7 @@ function synchronizeTRForTS() {
 						}
 					},		
 					error:function(data) {
-						alert("Error: Oops something is wrong, Please Contact System Administer");
+						alert("Error: Oops something is wrong, Please Contact System Administrator");
 					}	
 						
 				});
@@ -1713,7 +1764,7 @@ function synchronizeTRForTS() {
 					}
 					},
 			 		error:function(data) {
-					 alert("Error: Oops something is wrong, Please Contact System Administer");
+					 alert("Error: Oops something is wrong, Please Contact System Administrator");
 			  		}
 
 				});	
@@ -1750,14 +1801,180 @@ function synchronizeTRForTS() {
 				}
 				},
 			 	error:function(data) {
-				 alert("Error: Oops something is wrong, Please Contact System Administer");
+				 alert("Error: Oops something is wrong, Please Contact System Administrator");
 				  }
 
 			});	
 		}
 	}
-	
 
+function backToPrevious(status){
+	exceptionMessage='';
+	if(status == "1"){
+	backBtn = true;
+    var pageRef=defaultPagePath+'addPurchaseReq.html';
+    var headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
+	j(document).ready(function() {
+		
+		j('#mainHeader').load(headerBackBtn);
+		j('#mainContainer').load(pageRef);
+	});
+	appPageHistory.push(pageRef);
+    
+	}
+	else if(status == "2"){
+	backBtn = true;
+   var pageRef=defaultPagePath+'addPurchaseReqScreen2.html';
+    var headerBackBtn=defaultPagePath+'backToHomeStepTwoImg.html';
+	j(document).ready(function() {
+		
+		j('#mainHeader').load(headerBackBtn);
+		j('#mainContainer').load(pageRef);
+	});
+    appPageHistory.push(pageRef);
+	
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }	
+}
+
+function showEasyPR(status){
+	if(status == 1){
+		var itemId = jsonToAppSend["itemId"];
+		j('#item').select2("val",itemId);
+		document.getElementById("prquantity").value = jsonToAppSend["prquantity"];
+		document.getElementById("prrate").value = jsonToAppSend["prrate"];
+		document.getElementById("delDate").value = jsonToAppSend["deliveryDate"];
+	}else if(status == 2){
+		document.getElementById("narration").value = jsonToAppSend["narration"];
+	}
+}
+	
+function itemCartPage(status){
+	exceptionMessage='';
+	if(status == "1"){
+    backBtn = false;
+    var pageRef=defaultPagePath+'prInvoice.html';
+    var headerBackBtn=defaultPagePath+'expenzingImagePage.html';
+	j(document).ready(function() {
+		
+		j('#mainHeader').load(headerBackBtn);
+		j('#mainContainer').load(pageRef);
+	});
+    appPageHistory.push(pageRef);
+	}
+	else if(status == "2"){
+		backBtn = false;
+		if(validateEasyPrDetails(1)){
+		jsonToAppSend["prquantity"]=document.getElementById("prquantity").value;
+		jsonToAppSend["prrate"]=document.getElementById("prrate").value;	
+		jsonToAppSend["deliveryDate"]=document.getElementById("delDate").value;
+		calculateRatePerQuantity();		
+
+		   var pageRef=defaultPagePath+'addPurchaseReqScreen2.html';
+		   var headerBackBtn=defaultPagePath+'backToHomeStepTwoImg.html';
+		   j('#mainHeader').load(headerBackBtn);
+		   j('#mainContainer').load(pageRef);
+
+	   appPageHistory.push(pageRef);
+		}else{
+			return false;
+		}
+
+    }else if(status == "3"){
+    	backBtn = false;
+	if (mydb) {
+		jsonToAppSend["narration"]=document.getElementById("narration").value;
+   		var pageRef=defaultPagePath+'addPurchaseReqScreen3.html';
+    	var headerBackBtn=defaultPagePath+'backToHomeStepThreeImg.html';
+		j(document).ready(function() {
+		
+			j('#mainHeader').load(headerBackBtn);
+			j('#mainContainer').load(pageRef);
+		});
+    	appPageHistory.push(pageRef);
+	}
+
+		
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }
+}
+
+function saveEasyPr(){
+	exceptionMessage='';
+	var prTitle = document.getElementById("prTitle").value;
+	if(prTitle == ''){
+		alert("Please enter PR Title.");
+		return false;
+	}else{
+	setJsonToAppArray();
+    var pageRef=defaultPagePath+'addPurchaseReqScreen4.html';
+    var headerBackBtn=defaultPagePath+'backToHome.html';
+	urlPath=window.localStorage.getItem("urlPath");
+	j('#loading').show();
+    j.ajax({
+         url: urlPath+"SaveEasyPRWebService",
+         type: 'POST',
+         dataType: 'json',
+         crossDomain: true,
+         data: JSON.stringify(jsonToAppSend),
+         success: function(data) {
+         	if (data.status == 'Success'){
+        	 j('#mainHeader').load(headerBackBtn);
+             j('#mainContainer').load(pageRef);
+             successMessage = data.Message;
+              appPageHistory.push(pageRef);
+              
+			}else if(data.status == 'Failure'){
+ 			   successMessage = data.Message;
+	        	 j('#mainHeader').load(headerBackBtn);
+	             j('#mainContainer').load(pageRef);
+	             successMessage = data.Message;
+	             appPageHistory.push(pageRef);
+           }
+
+         },
+         error:function(data) {
+		   j('#loading').hide();
+         }
+   });
+  }
+}
+
+function validateEasyPrDetails(status){
+	exceptionMessage='';
+	if(status == "1"){
+		var prQtty = document.getElementById("prquantity").value;
+		var prRate = document.getElementById("prrate").value;
+		var deliveryDate = document.getElementById("delDate").value;
+
+		if(j("#item").select2('data') == null){
+			alert("Please select an Item") ;
+			return false;
+		}else if(prQtty == null || prQtty == '' || prQtty == 0){
+			alert("PR Quantity cannot be 0 or blank");
+			return false;
+		}else if(prRate == null || prRate == '' || prRate == 0){
+			alert("PR Rate cannot be 0 or blank");
+			return false;
+		}else if(deliveryDate == ''){
+			alert("Please enter Expected Delivery Date.");
+			return false;
+		}else {
+			return true;
+		}
+		
+
+	}
+	else if(status == "2"){
+	return true;
+    }else if(status == "3"){
+	return true;
+    } else {
+        alert("db not found, your browser does not support web sql!");
+    }
+}
 	
 
 
@@ -1765,8 +1982,8 @@ function synchronizeTRForTS() {
 function savePRDetails(status){
 	exceptionMessage='';
 	if(status == "1"){
-   var pageRef=defaultPagePath+'category.html';
-    var headerBackBtn=defaultPagePath+'backbtnPage.html';
+   var pageRef=defaultPagePath+'prInvoice.html';
+    var headerBackBtn=defaultPagePath+'expenzingImagePage.html';
 	j(document).ready(function() {
 		
 		j('#mainHeader').load(headerBackBtn);
@@ -1802,7 +2019,8 @@ function savePRDetails(status){
 		
 		
 		
-		if(validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_head_id,opBudget_id)){
+		
+		/*if(validatePrDetails(pr_title,po_raised_at,grn_raised_at,acCode_Type,acc_head_id,opBudget_id)){
 		 
 		j('#loading_Cat').show();			  
 		  
@@ -1830,11 +2048,12 @@ function savePRDetails(status){
 					//resetImageData();*/
 					//createBusinessExp();
 				/*}
-			};*/
-		
-		}else{
+			};
+			}else{
 			return false;
-		}
+		}*/
+		
+		
     } else {
         alert("db not found, your browser does not support web sql!");
     }
@@ -1842,18 +2061,18 @@ function savePRDetails(status){
 }
 
 function onloadPR() {
- 	document.getElementById("SubzoneDiv").style.display = "none";
+// 	document.getElementById("SubzoneDiv").style.display = "none";
  	var BudgetingStatus = window.localStorage.getItem("budgetingStatus");
 
 
- 		if(BudgetingStatus =='N'){
+ /*		if(BudgetingStatus =='N'){
  			
  			document.getElementById("Budgeting").style.display = "none";
  		}
  		else{
  			document.getElementById("Budgeting").style.display = "";
  			
- 		}
+ 		} */
  	
 	if (mydb) {
 		mydb.transaction(function (t) {
@@ -1862,6 +2081,7 @@ function onloadPR() {
 				//t.executeSql("SELECT * FROM expNameMst", [], getExpNameList);
 				t.executeSql("SELECT * FROM operationalBudgetMst", [], getOperationalBudgetList);
 				t.executeSql("SELECT * FROM budgetMst", [], getBudgetList);
+				t.executeSql("SELECT * FROM itemMst", [], getItemList);
 			});
 	} else {
 		alert("db not found, your browser does not support web sql!");
@@ -2140,7 +2360,7 @@ function getShipToLocation(){
         var row = results.rows.item(i);
         var itemDetailsJSON = new Object();
       itemDetailsJSON ["Label"]=row.itemId;
-	  itemDetailsJSON ["Value"]=row.itemCode;
+	  itemDetailsJSON ["Value"]=row.itemName+"--"+row.itemCode;
 	
 		/*jsonFindAccHead["Label"] = row.acHeadId;
 		jsonFindAccHead["Value"] = row.acHeadName;
@@ -2162,12 +2382,13 @@ function createItemDropDown(jsonitemArr){
 			//jsonBudgetArr.push({id: stateArr.Label,name: stateArr.Value});
 			jsonItemArr.push({id: stateArr.Label,name: stateArr.Value});
 		}
+		
 	}
 		
 	j("#item").select2({
 		data:{ results: jsonItemArr, text: 'name' },
-		placeholder: "Item Code",
-		minimumResultsForSearch: -1,
+		placeholder: "Select Item",
+		minimumResultsForSearch: 1,
 		initSelection: function (element, callback) {
 			callback(jsonItemArr[0]);
 		},
@@ -2177,12 +2398,18 @@ function createItemDropDown(jsonitemArr){
 				return result.name;
 		}
 	}).select2("val","");
+var itemId = jsonToAppSend["itemId"];	
+if (itemId != '' && itemId != '-1' && itemId != '0'){
+			j("#item").select2("val", itemId);
+		//	j('#orgUnit').select2('data', {id: orgHead, text: frmObj["forUnitName"].value});
+	}		
 }
 
 function getItemCode(){
-
+ 
  	var itemID = j("#item").select2('data').id;
        getItemCodeFromDB(itemID);
+       gTypeAheadItemChange();
  }
 
   function getItemCodeFromDB(itemID){
@@ -2265,4 +2492,69 @@ function getSubZoneName(){
         alert("db not found, your browser does not support web sql!");
     }	
 }
-//Amit End applib
+function gTypeAheadItemChange(){
+	    var itemId = j("#item").select2('data').id;
+		if(!(itemId == 0 || itemId == '')){
+
+		   var jsonToBeSend=new Object();
+		    jsonToBeSend["itemId"] = itemId;
+			var headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
+		    var pageRef=defaultPagePath+'addPurchaseReq.html';
+			urlPath=window.localStorage.getItem("urlPath");
+			j('#loading').show();
+		    j.ajax({
+		         url: urlPath+"EasyPRItemWebService",
+		         type: 'POST',
+		         dataType: 'json',
+		         crossDomain: true,
+		         data: JSON.stringify(jsonToBeSend),
+		         success: function(data) {
+		        //	 j('#mainHeader').load(headerBackBtn);
+		         //    j('#mainContainer').load(pageRef);
+		             appPageHistory.push(pageRef); 
+		             getItemDetail(data);        	
+		         },
+		         error:function(data) {
+				   j('#loading').hide();
+		         }
+      		});
+		}	 
+ 	}
+
+function getItemDetail(data){
+	
+			jsonToAppSend["itemId"]=data.itemId;
+			jsonToAppSend["itemCode"]=data.itemCode;
+			jsonToAppSend["itemName"]=data.itemName;
+			jsonToAppSend["itemText"]=data.itemDescription;
+			jsonToAppSend["accodeId"]=data.accountCodeId;
+			jsonToAppSend["accode"]=data.accountCode;
+			jsonToAppSend["acheadId"]=data.accountHeadId;
+			jsonToAppSend["achead"]=data.accountHead;
+			jsonToAppSend["notionalRate"]=data.notionalRate;
+			jsonToAppSend["capexOpex"]=data.capexOrOpex;
+			jsonToAppSend["expectedRate"]=data.notionalRate;
+
+			$("#prrate").val(data.notionalRate);
+			$("#prquantity").val(1);
+	}
+
+function showItemPreview(){
+		var date = new Date();
+		var month = date.getMonth();
+		var curDate = date.getDate();
+		var year = date.getFullYear();
+
+		var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+		var currentDate = curDate + "-" + months[(month)] + "-" + year
+
+		document.getElementById("itemBean").value = jsonToAppSend["itemName"]+"--"+jsonToAppSend["itemCode"];
+		document.getElementById("prquantityBean").value = jsonToAppSend["prquantity"];
+		document.getElementById("prrateBean").value = jsonToAppSend["prrate"];
+		document.getElementById("prValueBean").value = jsonToAppSend["prValue"];
+		document.getElementById("deliveryDate").value = jsonToAppSend["deliveryDate"];
+		document.getElementById("prTitle").value = 'PR/'+currentDate+'/'+ window.localStorage.getItem("EmployeeName");
+}
+
+

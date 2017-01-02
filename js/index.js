@@ -40,8 +40,8 @@ function login()
     var jsonToBeSend=new Object();
     jsonToBeSend["user"] = userName.value;
     jsonToBeSend["pass"] = password.value;
-   	var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
-	var pageRef=defaultPagePath+'category.html';
+   	var headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';
+	var pageRef=defaultPagePath+'prInvoice.html';
 	urlPath=window.localStorage.getItem("urlPath");
 	j('#loading').show();
     j.ajax({
@@ -174,8 +174,28 @@ function commanLogin(){
 
 function createPurchaseReq(){
 	resetImageData();
-	var headerBackBtn=defaultPagePath+'backbtnPage.html';
+	var headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
     var pageRef=defaultPagePath+'addPurchaseReq.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+      appPageHistory.push(pageRef);
+	 }
+	 function createWallet(){
+		 
+		 var headerBackBtn=defaultPagePath+'headerPageForWalletOperation.html';
+		 var pageRef=defaultPagePath+'addToWallet.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+      appPageHistory.push(pageRef);
+	 }
+
+	function backToHome(){
+	var headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';
+    var pageRef=defaultPagePath+'prInvoice.html';
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
 				j('#mainContainer').load(pageRef);
@@ -201,11 +221,13 @@ function createPurchaseReq(){
 			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
 			pgRef=defaultPagePath+'loginPageResetPswd.html';
 		}else if(window.localStorage.getItem("UserStatus")=='Valid'){
-			pgRef=defaultPagePath+'category.html';
-			headerBackBtn=defaultPagePath+'categoryMsgPage.html';
+			//pgRef=defaultPagePath+'category.html';
+			pgRef=defaultPagePath+'prInvoice.html';
+		//	headerBackBtn=defaultPagePath+'categoryMsgPage.html';
+			headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';
 		}else{
 			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
-		pgRef=defaultPagePath+'loginPage.html';
+			pgRef=defaultPagePath+'loginPage.html';
 		}
 
 	}else{
@@ -2004,14 +2026,14 @@ function synchronizePRMaster()
 	}
 }
 
- function CalulateRatePerQuantity()
+ function calculateRatePerQuantity()
  {
  	var rate =document.getElementById("prrate").value;
  	var quantity =document.getElementById("prquantity").value;
  	if( rate != 0 &&  quantity !=0){
- 		var Value = rate * quantity;
-
- 		document.getElementById("prvalue").value = Value ;
+ 		var value = parseFloat(rate) * parseFloat(quantity);
+		value = value.toFixed(2);
+ 		jsonToAppSend["prValue"]= value ;
  	}
  	else{
  		alert("Quantity or Amount Can not be zero ");
