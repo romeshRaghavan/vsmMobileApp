@@ -181,6 +181,7 @@ function createPurchaseReq(){
 				j('#mainContainer').load(pageRef);
 			});
       appPageHistory.push(pageRef);
+      resetEasyPR();
 	 }
 	 function createWallet(){
 		 
@@ -2161,5 +2162,20 @@ function showSubZone(status){
 		document.getElementById("SubzoneDiv").style.display = "none";
 	}
 
+}
+function resetEasyPR(){
+			jsonToAppSend["itemId"]="";
+			jsonToAppSend["itemCode"]="";
+			jsonToAppSend["itemName"]="";
+			jsonToAppSend["itemText"]="";
+			jsonToAppSend["accodeId"]="";
+			jsonToAppSend["accode"]="";
+			jsonToAppSend["acheadId"]="";
+			jsonToAppSend["achead"]="";
+			jsonToAppSend["notionalRate"]="";
+			jsonToAppSend["capexOpex"]="";
+			jsonToAppSend["expectedRate"]="";
+			jsonToAppSend["prTitle"]="";
+		
 }
  //Amit end  index}
