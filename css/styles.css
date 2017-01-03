@@ -532,9 +532,9 @@
 }
 .expenzinglogo {
     position: absolute;
-    top: -15px;
+    top: -19px;
     z-index: 100;
-    max-width: 26%;
+    max-width: 35%;
 }
 .deliveryDate {
     text-align: center;
