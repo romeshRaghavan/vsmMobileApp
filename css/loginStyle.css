@@ -90,10 +90,11 @@ ul, ol {
 	position:relative;
 }
 .procureToPay {
-	font-size:25px;
+	font-size:35px;
 	color:#9BCC49;
 	text-align:center;
-	margin-top:9px;
+	margin-top:-20px;
+	font-weight: bold;
 }
 .procureToPaySyncPage {
 	font-size:22px;
