@@ -602,3 +602,11 @@
     height: 20px;
     margin :0px;
 }
+.successMsg {
+	padding-left: 139px;
+	padding-top: 20px;
+}
+.failureMsg {
+	padding-left: 139px;
+	padding-top: 20px;
+}
