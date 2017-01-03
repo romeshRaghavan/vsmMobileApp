@@ -67,7 +67,7 @@ ul, ol {
 	background-position:left center;
 	background-repeat:no-repeat;
 	width:100%;
-	margin:0 auto;
+	margin:-3px auto;
 	height:227px;
 	padding:0;
 }
