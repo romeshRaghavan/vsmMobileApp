@@ -1928,7 +1928,8 @@ function saveEasyPr(){
               
 			}else if(data.status == 'Failure'){
  			   successMessage = data.Message;
-	        	 j('#mainHeader').load(headerBackBtn);
+		     var pageRef=defaultPagePath+'failure.html';				
+	             j('#mainHeader').load(headerBackBtn);
 	             j('#mainContainer').load(pageRef);
 	             successMessage = data.Message;
 	             appPageHistory.push(pageRef);
