@@ -2178,6 +2178,9 @@ function resetEasyPR(){
 			jsonToAppSend["expectedRate"]="";
 			jsonToAppSend["prTitle"]="";
 			jsonToAppSend["deliveryDate"]="";
+			jsonToAppSend["prquantity"]="";
+			jsonToAppSend["prrate"]="";
+
 
 }
 
