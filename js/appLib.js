@@ -105,34 +105,22 @@ function goBackEvent() {
 				navigator.app.exitApp();
 				//navigator.notification.confirm("Are you sure want to exit from App?", onConfirmExit, "Confirmation", "Yes,No");
 			}else{
-				var pg=appPageHistory[len];
+				var pg=appPageHistory[len-1];
 				alert(pg+" pg")
 				if(pg=="app/pages/addPurchaseReq.html"){ 
 					alert("addPurchaseReq")
-					 pageRef=defaultPagePath+'prInvoice.html';
-					 headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';	
+					 pageRef=defaultPagePath+'addPurchaseReq.html';
+					 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
 					 j('#mainHeader').load(headerBackBtn);
 					 j('#mainContainer').load(pageRef);						
 				}else if(pg=="app/pages/addPurchaseReqScreen2.html"){
 					alert("addPurchaseReqScreen2")
-					 pageRef=defaultPagePath+'addPurchaseReq.html';
-					 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';	
-					 j('#mainHeader').load(headerBackBtn);
-					 j('#mainContainer').load(pageRef);	
-				}else if(pg=="app/pages/addPurchaseReqScreen3.html"){
-					alert("addPurchaseReqScreen3")
 					 pageRef=defaultPagePath+'addPurchaseReqScreen2.html';
 					 headerBackBtn=defaultPagePath+'backToHomeStepTwoImg.html';	
 					 j('#mainHeader').load(headerBackBtn);
 					 j('#mainContainer').load(pageRef);	
-				}else if(pg=="app/pages/success.html"){
-					alert("success")
-					 pageRef=defaultPagePath+'prInvoice.html';
-					 headerBackBtn=defaultPagePath+'expenzingImagePage.html';	
-					 j('#mainHeader').load(headerBackBtn);
-					 j('#mainContainer').load(pageRef);	
-				}else if(pg=="app/pages/failure.html"){
-					alert("failure")
+				}else if(pg=="app/pages/addPurchaseReqScreen3.html"){
+					alert("addPurchaseReqScreen3")
 					 pageRef=defaultPagePath+'prInvoice.html';
 					 headerBackBtn=defaultPagePath+'expenzingImagePage.html';	
 					 j('#mainHeader').load(headerBackBtn);
