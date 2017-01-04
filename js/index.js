@@ -2177,5 +2177,12 @@ function resetEasyPR(){
 			jsonToAppSend["capexOpex"]="";
 			jsonToAppSend["expectedRate"]="";
 			jsonToAppSend["prTitle"]="";
-		
+			jsonToAppSend["deliveryDate"]="";
+
+}
+
+function resetData(){
+	j("#item").select2("val", "");
+	document.getElementById("prquantity").value = "";
+	document.getElementById("prrate").value = "";
 }
