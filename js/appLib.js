@@ -84,8 +84,9 @@ function goBack() {
  
 function goBackEvent() {
 	var currentUser=getUserID();
+	var pageRef=defaultPagePath+'prInvoice.html';
 	var loginPath=defaultPagePath+'loginPage.html';
-	var headerBackBtn=defaultPagePath+'backbtnPage.html';
+	var headerBackBtn=defaultPagePath+'expenzingImagePage.html';
 	var headerCatMsg=defaultPagePath+'categoryMsgPage.html';
 	
 	if(currentUser==''){
@@ -105,13 +106,31 @@ function goBackEvent() {
 				//navigator.notification.confirm("Are you sure want to exit from App?", onConfirmExit, "Confirmation", "Yes,No");
 			}else{
 				var pg=appPageHistory[len-1];
-				if(pg=="app/pages/addAnExpense.html"){ 
-					
-					j('#mainHeader').load(headerBackBtn);
-				}else if(pg=="app/pages/category.html"){
-					
-					j('#mainHeader').load(headerCatMsg);
-					forceCloseDropdown();
+				if(pg=="app/pages/addPurchaseReq.html"){ 
+					 pageRef=defaultPagePath+'prInvoice.html';
+					 headerBackBtn=defaultPagePath+'expenzingImagePage.html';	
+					 j('#mainHeader').load(headerBackBtn);
+					 j('#mainContainer').load(pageRef);						
+				}else if(pg=="app/pages/addPurchaseReqScreen2.html"){
+					 pageRef=defaultPagePath+'addPurchaseReq.html';
+					 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';	
+					 j('#mainHeader').load(headerBackBtn);
+					 j('#mainContainer').load(pageRef);	
+				}else if(pg=="app/pages/addPurchaseReqScreen3.html"){
+					 pageRef=defaultPagePath+'addPurchaseReqScreen2.html';
+					 headerBackBtn=defaultPagePath+'backToHomeStepOneImg2.html';	
+					 j('#mainHeader').load(headerBackBtn);
+					 j('#mainContainer').load(pageRef);	
+				}else if(pg=="app/pages/success.html"){
+					 pageRef=defaultPagePath+'prInvoice.html';
+					 headerBackBtn=defaultPagePath+'expenzingImagePage.html';	
+					 j('#mainHeader').load(headerBackBtn);
+					 j('#mainContainer').load(pageRef);	
+				}else if(pg=="app/pages/success.html"){
+					 pageRef=defaultPagePath+'prInvoice.html';
+					 headerBackBtn=defaultPagePath+'expenzingImagePage.html';	
+					 j('#mainHeader').load(headerBackBtn);
+					 j('#mainContainer').load(pageRef);	
 				}
 				if(!(pg==null)){ 
 					j('#mainContainer').load(pg);
@@ -1909,7 +1928,7 @@ function saveEasyPr(){
 		return false;
 	}else{
 	setJsonToAppArray();
-    var pageRef=defaultPagePath+'addPurchaseReqScreen4.html';
+    var pageRef=defaultPagePath+'success.html';
     var headerBackBtn=defaultPagePath+'backToHome.html';
 	urlPath=window.localStorage.getItem("urlPath");
 	j('#loading').show();
@@ -1928,8 +1947,8 @@ function saveEasyPr(){
               
 			}else if(data.status == 'Failure'){
  			   successMessage = data.Message;
-		     var pageRef=defaultPagePath+'failure.html';				
-	             j('#mainHeader').load(headerBackBtn);
+ 			   var pageRef=defaultPagePath+'failure.html';
+	        	 j('#mainHeader').load(headerBackBtn);
 	             j('#mainContainer').load(pageRef);
 	             successMessage = data.Message;
 	             appPageHistory.push(pageRef);
@@ -2556,6 +2575,9 @@ function showItemPreview(){
 		document.getElementById("prValueBean").value = jsonToAppSend["prValue"];
 		document.getElementById("deliveryDate").value = jsonToAppSend["deliveryDate"];
 		document.getElementById("prTitle").value = 'PR/'+currentDate+'/'+ window.localStorage.getItem("EmployeeName");
+
+		document.getElementById("itemBean").disabled = true;
+		document.getElementById("prquantityBean").disabled = "true";
 }
 
 function validateQuantity(){

@@ -2163,6 +2163,7 @@ function showSubZone(status){
 	}
 
 }
+
 function resetEasyPR(){
 			jsonToAppSend["itemId"]="";
 			jsonToAppSend["itemCode"]="";
@@ -2178,4 +2179,3 @@ function resetEasyPR(){
 			jsonToAppSend["prTitle"]="";
 		
 }
- //Amit end  index}
