@@ -2534,7 +2534,7 @@ function gTypeAheadItemChange(){
 		         success: function(data) {
 		        //	 j('#mainHeader').load(headerBackBtn);
 		         //    j('#mainContainer').load(pageRef);
-		             appPageHistory.push(pageRef); 
+		         //    appPageHistory.push(pageRef); 
 		             getItemDetail(data);        	
 		         },
 		         error:function(data) {
