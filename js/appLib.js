@@ -83,6 +83,7 @@ function goBack() {
 	}
  
 function goBackEvent() {
+	alert("goBackEvent")
 	var currentUser=getUserID();
 	var pageRef=defaultPagePath+'prInvoice.html';
 	var loginPath=defaultPagePath+'loginPage.html';
@@ -95,6 +96,8 @@ function goBackEvent() {
 		//To check if the page that needs to be displayed is login page. So 'historylength-2'
 		var historylength=appPageHistory.length;
 		var goToPage=appPageHistory[historylength-2];
+		alert(goToPage+" goToPage")
+		alert(appPageHistory+" appPageHistory")
 
 		if(goToPage!==null && goToPage==loginPath){
 			return 0;
@@ -109,18 +112,21 @@ function goBackEvent() {
 				alert(pg+" pg")
 				if(pg=="app/pages/addPurchaseReq.html"){ 
 					alert("addPurchaseReq")
+					 backBtn = true;
 					 pageRef=defaultPagePath+'addPurchaseReq.html';
 					 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
 					 j('#mainHeader').load(headerBackBtn);
 					 j('#mainContainer').load(pageRef);						
 				}else if(pg=="app/pages/addPurchaseReqScreen2.html"){
 					alert("addPurchaseReqScreen2")
+					 backBtn = true;
 					 pageRef=defaultPagePath+'addPurchaseReqScreen2.html';
 					 headerBackBtn=defaultPagePath+'backToHomeStepTwoImg.html';	
 					 j('#mainHeader').load(headerBackBtn);
 					 j('#mainContainer').load(pageRef);	
 				}else if(pg=="app/pages/addPurchaseReqScreen3.html"){
 					alert("addPurchaseReqScreen3")
+					 backBtn = true;
 					 pageRef=defaultPagePath+'prInvoice.html';
 					 headerBackBtn=defaultPagePath+'expenzingImagePage.html';	
 					 j('#mainHeader').load(headerBackBtn);
