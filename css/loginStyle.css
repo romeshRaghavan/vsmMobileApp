@@ -97,11 +97,19 @@ ul, ol {
 	font-weight: bold;
 }
 .procureToPaySyncPage {
-	font-size:22px;
+	font-size:28px;
 	color:#9BCC49;
 	text-align:center;
-	margin-top:50px;
+	margin-top:43px;
 	font-weight:bold;
+}
+.procureToPayLoginPage {
+	font-size:38px;
+	color:#9BCC49;
+	text-align:center;
+	margin-top:24px;
+	font-weight:bold;
+	padding-bottom: 17px;
 }
 .softwarecontent {
 	font-size:24px;
