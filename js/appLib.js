@@ -105,7 +105,7 @@ function goBackEvent() {
 				navigator.app.exitApp();
 				//navigator.notification.confirm("Are you sure want to exit from App?", onConfirmExit, "Confirmation", "Yes,No");
 			}else{
-				var pg=appPageHistory[len-1];
+				var pg=appPageHistory[len];
 				alert(pg+" pg")
 				if(pg=="app/pages/addPurchaseReq.html"){ 
 					alert("addPurchaseReq")
