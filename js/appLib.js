@@ -144,10 +144,6 @@ function goBackEvent() {
 					 j('#mainHeader').load(headerBackBtn);
 					 j('#mainContainer').load(pageRef);	
 				}
-				if(!(pg==null)){ 
-					alert("null")
-					j('#mainContainer').load(pg);
-				}
 			}
 		}
 	}
