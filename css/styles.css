@@ -494,7 +494,7 @@
 .stepOneImgPR {
 	background-image: url('../images/StepOnePRImg.png');
 	background-repeat: no-repeat;
-	width: 300px;
+	width: 320px;
 	height: 65px;
     margin-bottom: 2%;
     margin-left: 7%;
@@ -502,19 +502,19 @@
 	margin-top:10px;
 }
 .stepTwoImgPR {
-	background-image: url('../images/StepTwoPRImg.png');
-	background-repeat: no-repeat;
-	width: 300px;
-	height: 65px;
+    background-image: url('../images/StepTwoPRImg.png');
+    background-repeat: no-repeat;
+    width: 328px;
+    height: 65px;
     margin-bottom: 2%;
     margin-left: 7%;
-	margin-right: 70px;
-	margin-top:27px;
+    margin-right: 0;
+    margin-top: 27px;
 }
 .stepThreeImgPR {
 	background-image: url('../images/StepThreePRImg.png');
 	background-repeat: no-repeat;
-	width: 300px;
+	width: 320px;
 	height: 72px;
     margin-bottom: 2%;
     margin-left: 7%;
@@ -543,12 +543,20 @@
 .prQuantity {
     text-align: center;
     width: 12%;
-    padding-top: 10px;
+    padding-top: 13px;
 }
 .prRate {
     text-align: center;
     width: 20%;
-    padding-top: 10px;
+    padding-top: 25px;
+}
+.prQuantityBean{
+    text-align: center;
+    width: 12%;
+}
+.prRateBean{
+    text-align: center;
+    width: 20%;
 }
 .tdalignment {
 	vertical-align:top;
