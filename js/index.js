@@ -197,12 +197,47 @@ function createPurchaseReq(){
 	function backToHome(){
 	var headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';
     var pageRef=defaultPagePath+'prInvoice.html';
+	if(confirmToGoBack()==false){
+		if(confirm("All the filled in details will be deleted. Do you want to Proceed?")==false){
+			return false;
+		}else{
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
 				j('#mainContainer').load(pageRef);
 			});
       appPageHistory.push(pageRef);
-	 }
+  	}			
+	}else{
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+      appPageHistory.push(pageRef);
+  	}
+	}
+
+	function confirmToGoBack(){
+		if(jsonToAppSend["itemId"]!=""){
+			return false;
+		}else if(jsonToAppSend["itemCode"]!=""){
+			return false;
+		}else if(jsonToAppSend["itemName"]!=""){
+			return false;
+		}else if(jsonToAppSend["prTitle"]!=""){
+			return false;
+		}else if(jsonToAppSend["prquantity"]!=""){
+			return false;
+		}else if(jsonToAppSend["prrate"]!=""){
+			return false;
+		}else if(jsonToAppSend["deliveryDate"]!=""){
+			return false;
+		}else if(jsonToAppSend["narration"]!=""){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 	 function createWallet(){
 		 
 		 var headerBackBtn=defaultPagePath+'headerPageForWalletOperation.html';
