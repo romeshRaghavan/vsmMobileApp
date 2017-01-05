@@ -154,14 +154,14 @@
 .addprlogo {
 	background-image: url("../images/EasyPR.png");
     background-repeat: no-repeat;
-    width: 363px;
+    width: 500px;
     height: 120px;
     margin-top: 0%;
 }
 .addinvoicelogo {
 	background-image: url("../images/Invoice.png");
     background-repeat: no-repeat;
-    width: 360px;
+    width: 500px;
     height: 125px;
     margin-top: 0%;
     margin-bottom: 8%;
@@ -543,10 +543,12 @@
 .prQuantity {
     text-align: center;
     width: 12%;
+    padding-top: 10px;
 }
 .prRate {
     text-align: center;
     width: 20%;
+    padding-top: 10px;
 }
 .tdalignment {
 	vertical-align:top;
