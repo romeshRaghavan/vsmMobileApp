@@ -75,7 +75,6 @@
 .addanexpense li {
 	list-style-type: none;
 	text-align:center;
-	margin-bottom:10px;
 }
 .expenseform input, .expenseform select, #myTabContent input, #myTabContent select {
 	width:98%;
