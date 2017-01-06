@@ -1977,7 +1977,31 @@ function validateEasyPrDetails(status){
 		}else if(deliveryDate == ''){
 			alert("Please enter Expected Delivery Date.");
 			return false;
-		}else {
+		}else if(prQtty!='' && prRate!=''){
+			var amnt=parseFloat(prQtty)*parseFloat(prRate);
+			var totalValue=amnt.toFixed(2);	
+			if(parseFloat(totalValue) > 1000000000.00){
+				document.getElementById("prquantity").value='';
+				alert("Total Amount cannot be greater than 1000000000.00");
+				return false;
+			}else if(prRate.indexOf(".") != -1){
+				if(prRate.indexOf(".") > 10){
+					alert("Total Amount cannot be greater than 1000000000.00");
+					document.getElementById("prquantity").value='';
+					return false;
+				}else{
+					return true;
+				}
+			}else {
+				if (prRate.length > 10 ) {
+					alert("Total Amount cannot be greater than 1000000000.00");
+					document.getElementById("prquantity").value='';
+					return false;
+				}else{
+					return true;
+				}
+			}					
+	    }else {
 			return true;
 		}
 		

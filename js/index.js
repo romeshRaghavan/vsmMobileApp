@@ -218,20 +218,28 @@ function createPurchaseReq(){
 
 	function confirmToGoBack(){
 		if(jsonToAppSend["itemId"]!=""){
+			alert(jsonToAppSend["itemId"]+" itemId")
 			return false;
 		}else if(jsonToAppSend["itemCode"]!=""){
+			alert(jsonToAppSend["itemCode"]+" itemCode")
 			return false;
 		}else if(jsonToAppSend["itemName"]!=""){
+			alert(jsonToAppSend["itemName"]+" itemName")
 			return false;
 		}else if(jsonToAppSend["prTitle"]!=""){
+			alert(jsonToAppSend["prTitle"]+" prTitle")
 			return false;
 		}else if(jsonToAppSend["prquantity"]!=""){
+			alert(jsonToAppSend["prquantity"]+" prquantity")
 			return false;
 		}else if(jsonToAppSend["prrate"]!=""){
+			alert(jsonToAppSend["prrate"]+" prrate")
 			return false;
 		}else if(jsonToAppSend["deliveryDate"]!=""){
+			alert(jsonToAppSend["deliveryDate"]+" deliveryDate")
 			return false;
-		}else if(jsonToAppSend["narration"]!=""){
+		}else if(jsonToAppSend["narration"]!="" && jsonToAppSend["narration"]!=undefined){
+			alert(jsonToAppSend["narration"]+" narration")
 			return false;
 		}else{
 			return true;
@@ -2215,7 +2223,7 @@ function resetEasyPR(){
 			jsonToAppSend["deliveryDate"]="";
 			jsonToAppSend["prquantity"]="";
 			jsonToAppSend["prrate"]="";
-
+			jsonToAppSend["narration"]="";
 
 }
 
