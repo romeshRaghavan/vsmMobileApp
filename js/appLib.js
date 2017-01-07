@@ -105,30 +105,42 @@ function goBackEvent() {
 				navigator.app.exitApp();
 				//navigator.notification.confirm("Are you sure want to exit from App?", onConfirmExit, "Confirmation", "Yes,No");
 			}else{
-				var pg=appPageHistory[len-1];
-				if(pg=="app/pages/addPurchaseReq.html"){ 
-					 backBtn = true;
-					 pageRef=defaultPagePath+'addPurchaseReq.html';
-					 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
-					 j('#mainHeader').load(headerBackBtn);
-					 j('#mainContainer').load(pageRef);						
-				}else if(pg=="app/pages/addPurchaseReqScreen2.html"){
-					 backBtn = true;
-					 pageRef=defaultPagePath+'addPurchaseReqScreen2.html';
-					 headerBackBtn=defaultPagePath+'backToHomeStepTwoImg.html';	
-					 j('#mainHeader').load(headerBackBtn);
-					 j('#mainContainer').load(pageRef);	
-				}else if(pg=="app/pages/addPurchaseReqScreen3.html"){
-					 backBtn = true;
-					 pageRef=defaultPagePath+'prInvoice.html';
-					 headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';	
-					 j('#mainHeader').load(headerBackBtn);
-					 j('#mainContainer').load(pageRef);	
-				}else if(pg=="app/pages/prInvoice.html"){
-					 pageRef=defaultPagePath+'prInvoice.html';
-					 headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';	
-					 j('#mainHeader').load(headerBackBtn);
-					 j('#mainContainer').load(pageRef);	
+				if(confirmToGoBack()==false){
+					if(confirm("All the filled in details will be deleted. Do you want to Proceed?")==false){
+						return false;
+					}else{
+							j(document).ready(function() {
+							j('#mainHeader').load(headerBackBtn);
+							j('#mainContainer').load(pageRef);
+						});
+	      				appPageHistory.push(pageRef);
+  					}			
+				}else{
+					var pg=appPageHistory[len-1];
+					if(pg=="app/pages/addPurchaseReq.html"){ 
+						 backBtn = true;
+						 pageRef=defaultPagePath+'addPurchaseReq.html';
+						 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
+						 j('#mainHeader').load(headerBackBtn);
+						 j('#mainContainer').load(pageRef);						
+					}else if(pg=="app/pages/addPurchaseReqScreen2.html"){
+						 backBtn = true;
+						 pageRef=defaultPagePath+'addPurchaseReqScreen2.html';
+						 headerBackBtn=defaultPagePath+'backToHomeStepTwoImg.html';	
+						 j('#mainHeader').load(headerBackBtn);
+						 j('#mainContainer').load(pageRef);	
+					}else if(pg=="app/pages/addPurchaseReqScreen3.html"){
+						 backBtn = true;
+						 pageRef=defaultPagePath+'prInvoice.html';
+						 headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';	
+						 j('#mainHeader').load(headerBackBtn);
+						 j('#mainContainer').load(pageRef);	
+					}else if(pg=="app/pages/prInvoice.html"){
+						 pageRef=defaultPagePath+'prInvoice.html';
+						 headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';	
+						 j('#mainHeader').load(headerBackBtn);
+						 j('#mainContainer').load(pageRef);	
+					}
 				}
 			}
 		}
@@ -2595,9 +2607,7 @@ function showItemPreview(){
 		document.getElementById("prValueBean").value = jsonToAppSend["prValue"];
 		document.getElementById("deliveryDate").value = jsonToAppSend["deliveryDate"];
 		document.getElementById("prTitle").value = 'PR/'+currentDate+'/'+ window.localStorage.getItem("EmployeeName");
-
-		document.getElementById("itemBean").disabled = true;
-		document.getElementById("prquantityBean").disabled = "true";
+		document.getElementById("prTitle").maxLength = "50";
 }
 
 function validateQuantity(){
