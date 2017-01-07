@@ -83,7 +83,6 @@ function goBack() {
 	}
  
 function goBackEvent() {
-	alert("goBackEvent")
 	var currentUser=getUserID();
 	var pageRef=defaultPagePath+'prInvoice.html';
 	var loginPath=defaultPagePath+'loginPage.html';
@@ -108,7 +107,6 @@ function goBackEvent() {
 				//navigator.notification.confirm("Are you sure want to exit from App?", onConfirmExit, "Confirmation", "Yes,No");
 			}else{
 					var pg=appPageHistory[len-1];
-					alert(pg+" pg")
 					if(pg=="app/pages/addPurchaseReq.html"){ 
 							 backBtn = true;
 							 pageRef=defaultPagePath+'addPurchaseReq.html';
