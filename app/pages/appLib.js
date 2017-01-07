@@ -2607,9 +2607,7 @@ function showItemPreview(){
 		document.getElementById("prValueBean").value = jsonToAppSend["prValue"];
 		document.getElementById("deliveryDate").value = jsonToAppSend["deliveryDate"];
 		document.getElementById("prTitle").value = 'PR/'+currentDate+'/'+ window.localStorage.getItem("EmployeeName");
-
-		document.getElementById("itemBean").disabled = true;
-		document.getElementById("prquantityBean").disabled = "true";
+		document.getElementById("prTitle").maxLength = "50";
 }
 
 function validateQuantity(){
