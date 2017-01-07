@@ -106,6 +106,7 @@ function goBackEvent() {
 				//navigator.notification.confirm("Are you sure want to exit from App?", onConfirmExit, "Confirmation", "Yes,No");
 			}else{
 					var pg=appPageHistory[len-1];
+					alert(pg+" pg")
 					if(pg=="app/pages/addPurchaseReq.html"){ 
 						if(confirmToGoBack()==false){
 							if(confirm("All the filled in details will be deleted. Do you want to Proceed?")==false){
@@ -117,12 +118,12 @@ function goBackEvent() {
 								});
 			      				appPageHistory.push(pageRef);
 		  				}			
-					}else{
-						 backBtn = true;
-						 pageRef=defaultPagePath+'addPurchaseReq.html';
-						 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
-						 j('#mainHeader').load(headerBackBtn);
-						 j('#mainContainer').load(pageRef);		
+						}else{
+							 backBtn = true;
+							 pageRef=defaultPagePath+'addPurchaseReq.html';
+							 headerBackBtn=defaultPagePath+'backToHomeStepOneImg.html';
+							 j('#mainHeader').load(headerBackBtn);
+							 j('#mainContainer').load(pageRef);		
 						 }				
 					}else if(pg=="app/pages/addPurchaseReqScreen2.html"){
 						 backBtn = true;
