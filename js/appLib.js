@@ -2636,6 +2636,13 @@ if (isNumeric(rate,"Rate")== false) {
       document.getElementById("prTitle").value = prTitle.substr(0,max);
      }
     }	
+function maxlengthForNarration(){
+    var max = 250;
+    var narration = document.getElementById("narration").value;
+    if(narration.length > max){
+      document.getElementById("narration").value = narration.substr(0,max);
+     }
+    }
 function isNumeric(object,messageContent) {
 	if(isNaN(object)){
 		alert(messageContent + " should be numeric.");
