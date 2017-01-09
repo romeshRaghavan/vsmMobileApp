@@ -129,6 +129,8 @@ function goBackEvent() {
 							if(confirm("All the filled in details will be deleted. Do you want to Proceed?")==false){
 								return false;
 							}else{
+									pageRef=defaultPagePath+'prInvoice.html';
+									headerBackBtn=defaultPagePath+'expenzingImageWithSyncPage.html';								
 									j(document).ready(function() {
 									j('#mainHeader').load(headerBackBtn);
 									j('#mainContainer').load(pageRef);
