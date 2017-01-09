@@ -99,7 +99,6 @@ function goBackEvent() {
 		if(goToPage!==null && goToPage==loginPath){
 			return 0;
 		}else{
-			alert(appPageHistory+" appPageHistory")
 			appPageHistory.pop();
 			var len=appPageHistory.length;
 			if(len == 0){
