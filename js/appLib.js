@@ -2629,7 +2629,13 @@ if (isNumeric(rate,"Rate")== false) {
 			return true;
 		}
 	}
-
+ function maxlengthForPRTitle(){
+    var max = 50;
+    var prTitle = document.getElementById("prTitle").value;
+    if(prTitle.length > max){
+      document.getElementById("prTitle").value = prTitle.substr(0,max);
+     }
+    }	
 function isNumeric(object,messageContent) {
 	if(isNaN(object)){
 		alert(messageContent + " should be numeric.");
