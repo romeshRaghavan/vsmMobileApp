@@ -2631,20 +2631,23 @@ if (isNumeric(rate,"Rate")== false) {
 			return true;
 		}
 	}
- function maxlengthForPRTitle(){
+  function maxlengthForPRTitle(){
     var max = 50;
     var prTitle = document.getElementById("prTitle").value;
     if(prTitle.length > max){
+    	alert("PR Title cannot be greater than 50 characters")
       document.getElementById("prTitle").value = prTitle.substr(0,max);
      }
-    }	
+    }
+
 function maxlengthForNarration(){
     var max = 250;
     var narration = document.getElementById("narration").value;
     if(narration.length > max){
+    	alert("Justification cannot be greater than 250 characters")
       document.getElementById("narration").value = narration.substr(0,max);
      }
-    }
+    }	
 function isNumeric(object,messageContent) {
 	if(isNaN(object)){
 		alert(messageContent + " should be numeric.");
