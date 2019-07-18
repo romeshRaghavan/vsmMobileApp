@@ -2,7 +2,7 @@ var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
 var urlPath;
-var WebServicePath = 'http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service';
+var WebServicePath = 'http://1.255.255.143:8081/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
@@ -97,12 +97,14 @@ function commanLogin(){
 	jsonToDomainNameSend["mobilePlatform"] = "Android";
   	//var res=JSON.stringify(jsonToDomainNameSend);
 	var requestPath = WebServicePath;
+	alert('requestpath'+requestPath);
 	j.ajax({
          url: requestPath,
          type: 'POST',
          contentType : "application/json",
          dataType: 'json',
          crossDomain: true,
+         headers: { 'ap': 'xxwwrrtt' },
          data: JSON.stringify(jsonToDomainNameSend),
 		 success: function(data) {
          	if (data.status == 'Success'){
