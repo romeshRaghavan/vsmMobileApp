@@ -38,7 +38,7 @@
     <gap:plugin name="cordova-plugin-console" source="npm" />
     <gap:plugin name="cordova-plugin-contacts" source="npm" />
     <gap:plugin name="cordova-plugin-device" source="npm" />
-    <gap:plugin name="cordova-plugin-device-motion" source="npm" />
+    <!--<gap:plugin name="cordova-plugin-device-motion" source="npm" /> -->
     <gap:plugin name="cordova-plugin-device-orientation" source="npm" />
     <gap:plugin name="cordova-plugin-dialogs" source="npm" />
     <gap:plugin name="cordova-plugin-file" source="npm" />
