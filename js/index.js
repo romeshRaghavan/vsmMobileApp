@@ -97,7 +97,6 @@ function commanLogin(){
 	jsonToDomainNameSend["mobilePlatform"] = "Android";
   	//var res=JSON.stringify(jsonToDomainNameSend);
 	var requestPath = WebServicePath;
-	alert('requestpath'+requestPath);
 	j.ajax({
          url: requestPath,
          type: 'POST',
